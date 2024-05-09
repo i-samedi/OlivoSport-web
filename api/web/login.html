@@ -8,7 +8,8 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Login OlivoSport</title>
-        <script src="js/login.js" defer></script>
+        <script src="/api/web/js/login.js" defer></script>
+        <link rel="stylesheet" href="css/style.css">
     </head>
 
     <body>
@@ -16,7 +17,7 @@
         <div class="container">
             <div class="row justify-content-center mt-5 mb-5 ">
                 <div class="col-md-4">
-                    <h1 class="text-center">LOGIN</h1>
+                    <h1 class="text-center">Iniciar Sesion</h1>
                     <form id="saveLogin">
                     <div class="mb-3">
                         <label for="rut" class="form-label">RUT</label>
@@ -27,7 +28,9 @@
                         <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
                     </div>
                     <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                    <p class="error escondido">Error al iniciar sesion</p>
                     </form>
+                    <p>¿No tienes cuenta? - <a href="/register">Crear cuenta</a></p>
                 </div>
             </div>
         </div>

@@ -9,28 +9,33 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Register OlivoSport</title>
         <script src="js/register.js" defer></script>
+        <link rel="stylesheet" href="./css/style.css">
     </head>
-
     <body>
 
         <div class="container">
             <div class="row justify-content-center mt-5 mb-5 ">
                 <div class="col-md-4">
-                    <h1 class="text-center">REGISTER</h1>
+                    <h1 class="text-center">Registrarse</h1>
                     <form id="saveLogin">
                     <div class="mb-3">
                         <label for="rut" class="form-label">RUT</label>
                         <input type="text" class="form-control" id="rut" placeholder="Ingrese su RUT">
                     </div>
                     <div class="mb-3">
+                        <label for="email" class="form-label">Correo Electronico</label>
+                        <input type="text" class="form-control" id="email" placeholder="Ingrese su email">
+                    </div>
+                    <div class="mb-3">
                         <label for="password" class="form-label">Contraseña</label>
                         <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
                     </div>
-                    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-                    </form>
+                    <button type="submit" class="btn btn-primary">Crear cuenta</button>
+                    <p class="error escondido">Error al registrarse</p>
+                </form>
+                <p>¿Ya tienes cuenta? - <a href="/">Login</a></p>
                 </div>
             </div>
         </div>
-        <script src="./js/login.js"></script>
     </body>
-</html>
+    </html>

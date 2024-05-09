@@ -12,7 +12,7 @@ const app = express()
 const port = 3000
 
 
-app.use(express.static('../web'));
+app.use(express.static(__dirname+'/web'));
 
 
 app.get("/", (req,res) => {
@@ -21,6 +21,10 @@ app.get("/", (req,res) => {
 
 app.get("/register", (req,res) => {
     res.sendFile(path.join(__dirname+'/web/register.html'))
+})
+
+app.get("/admin", (req,res) =>{
+    res.sendFile(path.join(__dirname+'/web/admin/admin.html'))
 })
 
 app.listen(port, () => {
