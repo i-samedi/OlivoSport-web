@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const pool = require('./db')
 
 const app = express()
 const port = 3000
@@ -20,6 +21,24 @@ app.get('/prueba', (req, res) => {
 
 app.post('/login', (req, res) => {
     console.log("me esta llegando algo");
+    const { username, password } = req.body;
+    try {
+        //verificar las credenciales del usuario
+        const result = await pool.query(//insertar query
+        );
+
+        if (result.rows.length > 0) {
+            //Usuario autenticado
+            res.status(200).send('Inicio exitoso');
+        } else {
+            //Credenciales incorrectas
+            res.status(401).send('Credenciales incorrectas');
+        }
+    } catch (error) {
+        console.error('Error al realizar la consulta:', error);
+        res.status(500).send('Error interno del servidor');
+    }
+
 })
 
 app.listen(port, () => {
