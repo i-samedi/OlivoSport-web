@@ -1,25 +1,21 @@
-const express = require('express')
-const cors = require('cors')
+import express from "express"
+
+//para importar los archivos html
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express()
 const port = 3000
 
-app.use(
-    express.urlencoded({
-        extended: true
-    })
-)
-app.use(express.json({
-    type: "*/*"
-}))
-app.use(cors())
 
-app.get('/prueba', (req, res) => {
-    res.send('Hello World!')
-})
+app.use(express.static(__dirname + '/web'))
 
-app.post('/login', (req, res) => {
-    console.log("me esta llegando algo");
+
+app.get("/", (req,res) => {
+    res.sendFile(path.join(__dirname + '/web/index.html'))
 })
 
 app.listen(port, () => {
