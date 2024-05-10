@@ -11,11 +11,11 @@ const app = express()
 const port = 3000
 
 
-app.use(express.static(__dirname + '/web'))
+app.use(express.static(__dirname + '/../web'))
 
 
 app.get("/", (req,res) => {
-    res.sendFile(path.join(__dirname + '/web/index.html'))
+    res.sendFile(path.join(__dirname +  '/web/index.html'))
 })
 
 app.listen(port, () => {
