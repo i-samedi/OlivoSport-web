@@ -6,11 +6,12 @@ loginUser.addEventListener('submit', (event) => {
     let password = document.getElementById('password').value;
     let loginData = {rut: rut, password: password};
     let loginDataJson = JSON.stringify(loginData);
-    // console.log(loginDataJson);
-
-    fetch('http://localhost:3000/prueba', {
-        method: 'Post',
-        body: loginDataJson
-    })
-        .then(x => console.log("hola"))
+    console.log(loginDataJson);
 });
+
+//     fetch('http://localhost:3000/prueba', {
+//         method: 'Post',
+//         body: loginDataJson
+//     })
+//         .then(x => console.log("hola"))
+// });
