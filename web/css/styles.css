@@ -51,7 +51,7 @@ body{
 
 .container{
     display: grid;
-    width: 96%;
+    width: 100%;
     margin: 0 auto;
     gap: 1.8rem;
     grid-template-columns: 14rem auto 23rem;
@@ -101,8 +101,8 @@ aside .top{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
-    border-bottom: 0.8px solid var(--color-dark-variant);
+    padding: 0.5rem;
+
 }
 aside .logo img{
     width: 2rem;
