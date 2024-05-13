@@ -25,7 +25,7 @@
                         <img src="../image/logo.png"/>
                     </a>
                 </div>
-                <div class="close">
+                <div class="close" id="close-btn">
                     <span class="material-symbols-outlined">close</span>
                 </div>
                 <div class="sidebar">
@@ -50,8 +50,8 @@
                     </a>
 
                     <a href="#">
-                        <span class="material-symbols-outlined">manufacturing</span>
-                        <h3>Configuración</h3>
+                        <span class="material-symbols-outlined">person</span>
+                        <h3>Usuario</h3>
                     </a>
 
                     <a href="#">
@@ -61,66 +61,35 @@
                 </div>
             </aside>
             <!-- ----------------------- END OF ASIDE ----------------------- -->
-            <main>
-                <h1>Menu</h1>
-                <div class="date">
-                    <input type="date" id="date" name="date">   
-                </div>
-                <div class="insights">
-                    <div class="sales">
-                        <h2>Ventas</h2>
-                        <div class="sales-insights">
-                            <div class="sales-insight">
-                                <span class="material-icons-sharp">analytics</span>
-                                <div class="middle">
-                                    <div class="left">
-                                        <h3>Total Hour</h3>
-                                        <h1>1,200</h1>
-                                    </div>
-                                    <div class="progress">
-                                        <svg>
-                                            <circle cx="38" cy="38" r="36"></circle>
-                                        </svg>
-                                        <div class="number">
-                                            <p>81%</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="right">
+                <div class="top">
+                    <button class="menu-btn" id="menu-btn">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <div class="theme-toggler">
+                        <span class="material-icons-sharp active">light_mode</span>
+                        <span class="material-icons-sharp">dark_mode</span>
+                    </div>
+                    <div class="profile">
+                        <div class="info">
+                            <p>Hey, <b>Arthur</b></p>
+                            <small class="text-muted">Admin</small>
                         </div>
-                        <small class="text-muted">Last 24 Hours</small>
+                        <!-- <div class="profile-img">
+                            <img src="../image/profile.jpg">
+                        </div> -->
                     </div>
                 </div>
-            <!-- ----------------------- END OF ASIDE ----------------------- -->
+                <!--END OF TOP-->
                 
-            <!-- ----------------------- END OF ASIDE ----------------------- -->
-                <!-- <div class="insights">
-                    <div class="sales">
-                        <h2>Ventas</h2>
-                        <div class="sales-insights">
-                            <div class="sales-insight">
-                                <span class="material-icons-sharp">analytics</span>
-                                <div class="middle">
-                                    <div class="left">
-                                        <h3>Total Hour</h3>
-                                        <h1>1,200</h1>
-                                    </div>
-                                    <div class="progress">
-                                        <svg>
-                                            <circle cx="38" cy="38" r="36"></circle>
-                                        </svg>
-                                        <div class="number">
-                                            <p>81%</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <small class="text-muted">Last 24 Hours</small>
-                    </div>
-                </div> -->
-    <!-- ----------------------- END OF ASIDE ----------------------- -->
-            </main>
+            </div>
+
+
+
         </div>
+
+
+        
+        <script src="../js/app.js"></script>
     </body>
 </html>
