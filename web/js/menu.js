@@ -19,6 +19,8 @@ themeToggler.addEventListener('click', () => {
 
 })
 
+//EJEMPLO
+
 //cargar contenido al hacer clic en los enlaces del sidebar sin afectarla
 document.querySelectorAll('.sidebar a').forEach(link => {
     link.addEventListener('click', function(event) {
