@@ -1,4 +1,5 @@
 import express, { Router } from "express";
+import flash from 'connect-flash';
 
 const app = express();
 const port = 3000;
@@ -12,6 +13,10 @@ import session from "express-session";
 //config
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname + '/../web/pages'));
+app.use(flash());
+
 
 //middlewares
 app.use(express.json()); //entender formato json
@@ -24,6 +29,18 @@ app.use(
     saveUninitialized: false,
   })
 );
+var auth = function(req, res, next) {
+    if (req.session && req.session.user === "201101751" && req.session.admin)
+      return next();
+    else
+      return res.sendStatus(401);
+  };
+
+
+app.use((req,res,next)=>{
+    app.locals.message = req.flash('success');
+    next();
+})
 
 //Rutas de la API
 app.get("/", (req, res) => {
@@ -31,15 +48,21 @@ app.get("/", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  console.log(req.body);
-  //req.session.my_variable = 'hello world';
-  res.send("recived");
+    //console.log(req.body);
+    req.flash('user', req.body);
+    req.flash('success', 'Ya estas Logeado !!');
+    
+    //comparar credenciales
+    
+    res.redirect('/menu');
 });
 
-/* app.get('/profile', (req,res)=>{
-    res.render('profile');
+app.get('/menu', (req,res)=>{
+    const user = req.flash('user')[0];
+    console.log(user);
+    res.render('menu');
 })
- */
+
 
 
 app.listen(port, () => {
