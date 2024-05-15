@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../css/styleprofes.css">
+    <link rel="icon" type="image/x-icon" href="../image/mini.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu</title>
+<script> const sgMail = require('@sendgrid/mail');</script>
+
+    <script>
+    window.onload = function() {
+    var reemplazoButtons = document.querySelectorAll('.reemplazo-btn');
+
+    reemplazoButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var nombreProfesor = this.parentElement.querySelector('.name').textContent;
+            var confirmacion = confirm("¿Deseas seleccionar un reemplazo para " + nombreProfesor + "?");
+
+            if (confirmacion) {
+                // Mostrar la lista de profesores disponibles
+                document.getElementById('profesores-disponibles').style.display = 'block';
+            }
+        });
+    });
+
+    // Establecer el evento de selección del botón de selección fuera del bucle
+    document.getElementById('seleccionar-btn').onclick = function() {
+        // Obtener el valor seleccionado de la lista de profesores
+        var nuevoProfesorId = document.getElementById('lista-profesores').value;
+        var nuevoProfesorNombre = document.getElementById('lista-profesores').options[document.getElementById('lista-profesores').selectedIndex].text;
+
+        // Crear el elemento para el nombre del profesor de reemplazo
+        var profesorReemplazo = document.createElement('div');
+        profesorReemplazo.classList.add('reemplazante');
+        profesorReemplazo.textContent = nuevoProfesorNombre;
+
+        // Insertar el nombre del profesor de reemplazo debajo del nombre del profesor no disponible
+        var contenedorProfesor = document.getElementById('profesor-nombre');
+        var contenedorReemplazo = contenedorProfesor.querySelector('.reemplazante');
+        contenedorReemplazo.appendChild(profesorReemplazo);
+
+        // Ocultar la lista de profesores disponibles
+        document.getElementById('profesores-disponibles').style.display = 'none';
+    };
+};
+</script>
+
+</head>
+<body>
+  
+<!-- LISTA DE PROFESORES -->
+
+    <div class="container-lista">
+        <div class="professor-list">
+          <div class="column-headers">
+            <div class="header">PROFESOR DE CURSO</div>
+            <div class="header">CURSO</div>
+            <div class="header">DISPONIBILIDAD</div>
+            <div class="header">FECHA Y HORA DE CLASES</div>
+            <div class="header" id="reemplazi"> REEMPLAZO</div>
+          </div>
+          <div class="professor-item">
+            <div class="name">Carlitos Palacios</div>
+            <div class="Curso">Padel</div>
+            <div class="availability available">Disponible</div>
+            <div class="class-date">6/10/2020</div>
+            <div class="reemplazante" id="reemplazi"> </div>
+          </div>
+          <div class="professor-item">
+            <div class="name">Lionel Messi</div>
+            <div class="Curso">Futbol</div>
+            <div class="availability available">Disponible</div>
+            <div class="class-date">6/10/2020</div>
+            <div class="reemplazante" id="reemplazi"> </div>
+          </div>
+          <div class="professor-item" id="profesor-nombre" >
+            <div class="name">Arturo Vidal</div>
+            <div class="Curso">Natación</div>
+            <div class="availability unavailable">No Disponible</div>
+            <div class="class-date">6/10/2020</div>
+            <div class="reemplazante" id="reemplazi"> </div>
+            <button class="reemplazo-btn">Seleccionar reemplazo</button>
+          </div>
+          <div class="professor-item">
+            <div class="name">Juan perez</div>
+            <div class="Curso">Futbol</div>
+            <div class="availability available">Disponible</div>
+            <div class="class-date">6/10/2020</div>
+          </div>
+        </div>
+        <div class="bottom-bar"></div>
+      </div>
+      <div id="profesores-disponibles" style="display: none;">
+        <select id="lista-profesores">
+            <option value="1">Juan Pérez</option>
+            <option value="2">Lionel Messi</option>
+            <option value="3">Carlitos Palacios</option>
+            <!-- Agrega más opciones según sea necesario -->
+        </select>
+        <button id="seleccionar-btn">Seleccionar</button>
+    </div>
+</body>
+</html>
