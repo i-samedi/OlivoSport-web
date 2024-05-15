@@ -9,6 +9,12 @@ import { fileURLToPath } from "url";
 import path, { dirname } from "path";
 
 import session from "express-session";
+import cookieParser from "cookie-parser";
+import {sequelize, db} from './models/db.js'
+import { login, signup } from './controllers/userController.js';
+import { saveUser } from './middlewares/userAuth.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 //config
 const __filename = fileURLToPath(import.meta.url);
@@ -29,12 +35,8 @@ app.use(
     saveUninitialized: false,
   })
 );
-var auth = function(req, res, next) {
-    if (req.session && req.session.user === "201101751" && req.session.admin)
-      return next();
-    else
-      return res.sendStatus(401);
-  };
+app.use(cookieParser())
+
 
 
 app.use((req,res,next)=>{
@@ -47,15 +49,13 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/web/index.html"));
 });
 
-app.post("/login", (req, res) => {
-    //console.log(req.body);
-    req.flash('user', req.body);
-    req.flash('success', 'Ya estas Logeado !!');
-    
-    //comparar credenciales
-    
-    res.redirect('/menu');
-});
+app.post('/signup', saveUser, signup, (req,res)=>{
+  res.redirect('/');
+})
+
+app.post('/login', login,  (req,res)=>{
+  res.redirect('/menu');
+})
 
 app.get('/menu', (req,res)=>{
     const user = req.flash('user')[0];
@@ -63,8 +63,23 @@ app.get('/menu', (req,res)=>{
     res.render('menu');
 })
 
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("db has been re sync")
+})
 
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+async function main(){
+  try {
+    await sequelize.authenticate();
+    app.listen(port, () => {
+      console.log(`The server is listening at http://localhost:${port}`);
+    });
+    
+  } catch (error) {
+    console.error('Error to connect to database', error);
+  }
+}
+
+
+
+main();

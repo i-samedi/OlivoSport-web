@@ -1,0 +1,8 @@
+{
+  "rut": "201101751",
+  "password": "pw123",
+  "tipo_de_usuario": "admin",
+  "nombre": "Felipe",
+  "apellido": "Silva"
+}
+
