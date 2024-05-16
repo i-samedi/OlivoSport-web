@@ -19,3 +19,13 @@ themeToggler.addEventListener('click', () => {
     themeToggler.querySelector('span:nth-child(2)').classList.toggle('active');
 
 })
+
+const alertElement = document.getElementById('alert');
+
+if (message) {
+  alertElement.textContent = message;
+  alertElement.classList.add('alert');
+} else {
+  alertElement.textContent = '';
+  alertElement.classList.remove('alert');
+}

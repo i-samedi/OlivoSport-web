@@ -319,13 +319,3 @@ aside .sidebar {
 
   
 }
-
-.alert {
-  display: inline-block; /* Ajusta el ancho al contenido */
-  background-color: rgba(76, 175, 80, 0.3); /* Color verde transparente */
-  color: #4CAF50; /* Color verde para el texto */
-  border: 1px solid #4CAF50; /* Borde verde */
-  padding: 15px; /* Espacio alrededor del texto */
-  margin: 10px 0;
-  word-wrap: break-word;
-}
