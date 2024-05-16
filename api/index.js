@@ -54,7 +54,8 @@ app.use((req,res,next)=>{
 
 db.sequelize.sync({ force: true }).then(() => {
   console.log("db has been re sync")
-  createUser(201101751, 'passwordxdxd', 'admin', 'felipe', 'kratos');
+  createUser(112345675, 'passworxdxd', 'admin', 'Chupete', 'Suazo');
+createUser(112345679, '123', 'admin', 'Alexis', 'Sanchez');
 })
 
 //Rutas de la API
