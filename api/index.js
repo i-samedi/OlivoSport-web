@@ -78,7 +78,6 @@ app.get('/menu',(req,res)=>{
 })
 
 
-
 async function main(){
   try {
     await sequelize.authenticate();
@@ -90,7 +89,5 @@ async function main(){
     console.error('Error to connect to database', error);
   }
 }
-
-
 
 main();
