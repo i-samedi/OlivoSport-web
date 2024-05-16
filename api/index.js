@@ -22,14 +22,14 @@ import createUser from "./models/createUser.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 app.set('view engine', 'ejs');
-//app.set('views', path.join(__dirname + '/../web/pages'));
+app.set('views', path.join(__dirname + '/../web/pages'));
 app.use(flash());
 
 
 //middlewares
 app.use(express.json()); //entender formato json
 app.use(express.urlencoded({ extended: true })); //para entender los datos que llegan desde un formulario
-//.use(express.static(__dirname + "/../web"));
+app.use(express.static(__dirname + "/../web"));
 app.use(
   session({
     secret: "olivosKey",
@@ -46,7 +46,6 @@ function authVer(req,res,next){
   }
 }
 
-
 app.use((req,res,next)=>{
     app.locals.message = req.flash('unsuccess');
     next();
@@ -60,7 +59,7 @@ db.sequelize.sync({ force: true }).then(() => {
 
 //Rutas de la API
 app.get("/", (req, res) => {
-  //res.sendFile(path.join(__dirname + "/web/index.html"));
+  res.sendFile(path.join(__dirname + "/web/index.html"));
 });
 
 app.post('/login', login,  (req,res)=>{
@@ -76,6 +75,7 @@ app.get('/menu',(req,res)=>{
     console.log(user);
     res.render('menu');
 })
+
 
 
 async function main(){

@@ -2,10 +2,9 @@
 export default(sequelize, DataTypes) => {
    const User = sequelize.define( "user", {
         rut: {
-            type: DataTypes.BIGINT,
+            type: DataTypes.INTEGER,
             primaryKey: true,
-            allowNull: false,
-
+            allowNull: false
         },
         password: {
             type: DataTypes.STRING,
