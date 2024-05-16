@@ -20,4 +20,6 @@ async function createUser(rut, password, tipo_de_usuario, nombre, apellido){
     }
 }
 
+
+
 export default createUser;
