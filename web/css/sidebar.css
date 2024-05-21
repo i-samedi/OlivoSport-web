@@ -40,3 +40,56 @@ body{
       margin-left: 0;
      }
    }
+  
+
+   .container-lista {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 100px;
+
+  }
+  
+  .professor-list {
+    width: 100%;
+    padding: 20px;
+    background-color: #f2f2f2;
+  }
+  
+  .column-headers {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 15px;
+    padding: 10px;
+    background-color: #000000;
+    color: #fff;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .professor-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .name {
+    font-weight: bold;
+  }
+  
+  .availability.available {
+    color: green;
+  }
+  
+  .availability.pending {
+    color: orange;
+  }
+  
+  .availability.unavailable {
+    color: red;
+  }
+  .reemplazo-btn{
+
+  }

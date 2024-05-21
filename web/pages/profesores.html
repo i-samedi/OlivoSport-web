@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="icon" type="image/x-icon" href="../image/mini.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"/>
+    <link rel="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css"/>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script defer src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
+    <script defer src="../js/cursos.js"></script>
+    <script>
+window.onload = function() {
+    // Delegamos el evento al contenedor principal
+    document.querySelector('#example').addEventListener('click', function(event) {
+        // Verificamos si el elemento clicado es un botón de reemplazo
+        if (event.target.classList.contains('reemplazo-btn')) {
+            var button = event.target;
+            var nombreProfesor = button.parentElement.parentElement.querySelector('td:first-child').textContent;
+            var confirmacion = confirm("¿Deseas seleccionar un reemplazo para " + nombreProfesor + "?");
+
+            if (confirmacion) {
+                // Mostrar la lista de profesores disponibles
+                document.getElementById('profesores-disponibles').style.display = 'block';
+
+                // Establecer el evento de selección del botón de selección
+                document.getElementById('seleccionar-btn').onclick = function() {
+                    // Obtener el valor seleccionado de la lista de profesores
+                    var nuevoProfesorNombre = document.getElementById('lista-profesores').options[document.getElementById('lista-profesores').selectedIndex].text;
+
+                    // Crear el elemento para el nombre del profesor de reemplazo
+                    var profesorReemplazo = document.createElement('div');
+                    profesorReemplazo.classList.add('reemplazante');
+                    profesorReemplazo.textContent = nuevoProfesorNombre;
+
+                    // Obtener la fila correspondiente al botón seleccionado
+                    var fila = button.parentElement.parentElement;
+
+                    // Actualizar la celda de reemplazante en la fila correspondiente
+                    var celdaReemplazo = fila.querySelector('.reemplazante');
+                    celdaReemplazo.innerHTML = ''; // Limpiamos cualquier contenido previo
+                    celdaReemplazo.appendChild(profesorReemplazo);
+
+                    // Ocultar la lista de profesores disponibles
+                    document.getElementById('profesores-disponibles').style.display = 'none';
+                };
+            }
+        }
+    });
+};
+
+    </script>
+    
+</head>
+<body>
+
+    <div class="main-container d-flex">
+        <div class="sidebar" id="side_nav">
+            <div class="header-box px-2 pt-3 pb-4 d-flex justify-content-between ">
+                <a href="https://olivossport.cl/"><img src="../image/logo.png" alt="logo"></a>
+            </div>
+    
+            <ul class="list-unstyled px-2"> 
+                <li class="">
+                    <a href="user.html" class="text-decoration-none px-3 py-2 d-block " >
+                        <i class="fal fa-home" ></i> 
+                        Menu
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="profesores.html" class="text-decoration-none px-3 py-2 d-block">
+                        <i class="fal fa-list"></i>
+                        Profesores
+                    </a>
+                </li>
+                    
+                <li class="">
+                    <a href="#" class="text-decoration-none px-3 py-2 d-block">
+                        <i class="fal fa-envelope-open-text">
+                        </i> Clases</a></li>
+
+                <li class="">
+                    <a href="#" class="text-decoration-none px-3 py-2 d-block">
+                        <i class="fal fa-users"></i>
+                        Perfil</a></li>
+            </ul>
+
+            <hr class="h-color mx-2">
+    
+            <ul class="list-unstyled px-2">
+                <li class=""><a href="../index.html" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bars"></i>
+                        Cerrar Sesión</a></li>
+                <!-- <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bell"></i>
+                        Notifications</a></li> -->
+    
+            </ul>
+        </div>
+        <!-- ----------------------- END OF SIDEBAR ----------------------- -->
+        <div class="content">
+
+            <nav class="navbar navbar-expand-md navbar-light bg-light">
+                <div class="container-fluid">
+                    <div class="d-flex justify-content-between d-md-none d-block">
+                        <button class="btn px-1 py-0 open-btn me-md-2 " type="button">
+                            <i class="fal fa-stream">
+                                <span class="material-symbols-outlined">menu</span>
+                            </i>
+                        </button>
+                    </div>
+                    <button class="navbar-toggler p-0 border-0" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fal fa-bars"></i>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                        <ul class="navbar-nav mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a href="#"><img src="../image/profile.jpg" style="height: 40px; width: 40px;"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- ----------------------- END OF NAVBAR ----------------------- -->
+
+            <div class="dashboard-content px-3 pt-4">
+    
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">¡Atención!</h4>
+                    <p>El profesor Bradley Greer no está disponible para la fecha 6/10/2020.</p>         
+                </div>
+            
+   <!-- LISTA DE PROFESORES -->
+   <table id="example" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Especialidad</th>
+            <th>Cursos</th>
+            <th>Horarios</th>
+            <th id="reemplazi">Reemplazante</th>
+            <th class="dispo" id="disponi"> Disponibilidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Tiger Nixon</td>
+            <td>System Architect</td>
+            <td>Edinburgh</td>
+            <td>61</td>
+            <td></td>
+            <td> Disponible</td>
+        </tr>
+        <tr>
+            <td>Garrett Winters</td>
+            <td>Accountant</td>
+            <td>Tokyo</td>
+            <td>63</td>
+            <td></td>
+            <td> Disponible</td>
+        </tr>
+        <tr>
+            <td>Ashton Cox</td>
+            <td>Junior Technical Author</td>
+            <td>San Francisco</td>
+            <td>66</td>
+            <td></td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Cedric Kelly</td>
+            <td>Senior Javascript Developer</td>
+            <td>Edinburgh</td>
+            <td>22</td>
+            <td></td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Cedric Kelly</td>
+            <td>Senior Javascript Developer</td>
+            <td>Edinburgh</td>
+            <td>22</td>
+            <td></td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Airi Satou</td>
+            <td>Accountant</td>
+            <td>Tokyo</td>
+            <td>33</td>
+            <td class="reemplazante" id=" reemplazi"></td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Brielle Williamson</td>
+            <td>Integration Specialist</td>
+            <td>New York</td>
+            <td>61</td>
+            <td class="reemplazante" id=" reemplazi"></td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Hola Kelly</td>
+            <td>Senior Javascript Developer</td>
+            <td>Edinburgh</td>
+            <td>22</td>
+            <td></td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Cedric Kelly</td>
+            <td>Senior Javascript Developer</td>
+            <td>Edinburgh</td>
+            <td>22</td>
+            <td></td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Herrod Chandler</td>
+            <td>Sales Assistant</td>
+            <td>San Francisco</td>
+            <td>59</td>
+            <td class="reemplazante" id=" reemplazi"> </td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Rhona Davidson</td>
+            <td>Integration Specialist</td>
+            <td>Tokyo</td>
+            <td>55</td>
+            <td class="reemplazante" id=" reemplazi"> </td>
+            <td> Disponible</td>
+        </tr>
+        <tr>
+            <td>Colleen Hurst</td>
+            <td>Javascript Developer</td>
+            <td>San Francisco</td>
+            <td>39</td>
+            <td class="reemplazante" id=" reemplazi"> </td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Sonya Frost</td>
+            <td>Software Engineer</td>
+            <td>Edinburgh</td>
+            <td>23</td>
+            <td class="reemplazante" id=" reemplazi"></td>
+            <td>No disponible</td>
+            <td> <button class="reemplazo-btn">Seleccionar reemplazo</button>
+             </td>
+        </tr>
+        <tr>
+            <td>Jena Gaines</td>
+            <td>Office Manager</td>
+            <td>London</td>
+            <td>30</td>
+            <td></td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Quinn Flynn</td>
+            <td>Support Lead</td>
+            <td>Edinburgh</td>
+            <td>22</td>
+            <td></td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Charde Marshall</td>
+            <td>Regional Director</td>
+            <td>San Francisco</td>
+            <td>36</td>
+            <td></td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Haley Kennedy</td>
+            <td>Senior Marketing Designer</td>
+            <td>London</td>
+            <td>43</td>
+            <td class="reemplazante" id="reemplazi"></td>
+            <td>No disponible</td>
+            <td> <button class="reemplazo-btn">Seleccionar reemplazo</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Tatyana Fitzpatrick</td>
+            <td>Regional Director</td>
+            <td>London</td>
+            <td>19</td>
+            <td></td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Michael Silva</td>
+            <td>Marketing Designer</td>
+            <td>London</td>
+            <td>66</td>
+            <td></td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Paul Byrd</td>
+            <td>Chief Financial Officer (CFO)</td>
+            <td>New York</td>
+            <td>64</td>
+            <td></td>
+            <td>Disponible</td>
+        </tr>
+        <tr>
+            <td>Haley Kennedy</td>
+            <td>Senior Marketing Designer</td>
+            <td>London</td>
+            <td>43</td>
+            <td class="reemplazante" id="reemplazi"> </td>
+            <td>No disponible</td>
+            <td> <button class="reemplazo-btn">Seleccionar reemplazo</button>
+
+        </tr>
+        <tr>
+            <td>Bradley Greer</td>
+            <td>Software Engineer</td>
+            <td>London</td>
+            <td>41</td>
+            <td class="reemplazante" id="reemplazi"></td>
+            <td>No disponible</td>
+            <td> <button class="reemplazo-btn">Seleccionar reemplazo</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Dai Rios</td>
+            <td>Personnel Lead</td>
+            <td>Edinburgh</td>
+            <td>35</td>
+            <td> </td>
+            <td>Disponible</td>
+        </tr>
+        
+    </tbody>
+
+</table>
+   
+<div id="profesores-disponibles" style="display: none;">
+    <select id="lista-profesores">
+        <option value="1">Juan Pérez</option>
+        <option value="2">Lionel Messi</option>
+        <option value="3">Carlitos Palacios</option>
+        <option value="4">Cristiano ronaldo</option>
+        <option value="5">Ignacio ronaldo</option>
+        <option value="6">Samedi ronaldo</option>
+        <option value="7">Pipe ronaldo</option>
+        <option value="8">Dj ronaldo</option>
+        <option value="9">Rayo ronaldo</option>
+        <!-- Agrega más opciones según sea necesario -->
+    </select>
+    <button id="seleccionar-btn">Seleccionar</button>
+</div>
+
+    
+<div class="bottom-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/sidebar.js"></script>
+</body>
+</html>
