@@ -11,8 +11,9 @@ import path, { dirname } from "path";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import {sequelize, db} from './models/db.js'
-import { login, /* signup */  } from './controllers/userController.js';
+import { login, /* signup */ perm  } from './controllers/userController.js';
 import { saveUser } from './middlewares/userAuth.js';
+
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -22,11 +23,12 @@ import createUser from "./models/createUser.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname + '/../web/pages'));
+app.set('views', path.join(__dirname + '/../web/pages')); // mostrar ejs
 app.use(flash());
 
 
 //middlewares
+
 app.use(express.json()); //entender formato json
 app.use(express.urlencoded({ extended: true })); //para entender los datos que llegan desde un formulario
 app.use(express.static(__dirname + "/../web"));
@@ -38,10 +40,14 @@ app.use(
   })
 );
 app.use(cookieParser())
+
+//RESTRICCION MOMENTANEA DE ACCESO (HAY QUE MEJORARLA)
 function authVer(req,res,next){
-  if(req.session.user){
+  if(perm){
+    console.log('se logro')
     next();
   }else{
+    console.log('no se logro')
     res.redirect('/');
   }
 }
@@ -65,14 +71,18 @@ app.get("/", (req, res) => {
 });
 
 app.post('/login', login,  (req,res)=>{
-
+    req.flash('user', req.body);
     res.redirect('/menu');
-    console.log('Success!');
 })
 
-app.get('/menu',(req,res)=>{
-    const user = req.flash('user')[0];
-    console.log(user);
+app.post('/logout', (req,res)=>{
+  req.session.destroy();
+})
+
+//authVer es la restriccion a la ruta /menu, pero hay que mejorarla
+app.get('/menu',authVer,(req,res)=>{
+/*     const user = req.flash('user')[0];
+    console.log(user); */
     res.render('menu');
 })
 

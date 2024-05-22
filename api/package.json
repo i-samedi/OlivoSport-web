@@ -9,6 +9,7 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "jsonwebtoken": "^9.0.2",
+    "passport": "^0.7.0",
     "pg": "^8.11.5",
     "pg-hstore": "^2.3.4",
     "postgres": "^3.4.4",

@@ -3,6 +3,7 @@ import {db} from '../models/db.js';
 import jwt from 'jsonwebtoken';
 const User = db.users;
 
+export var perm;
 
 export const login = async (req, res, next) => {
     try {
@@ -33,15 +34,19 @@ export const login = async (req, res, next) => {
           res.cookie("jwt", token, { maxAge: 1 * 24 * 60 * 60, httpOnly: true });
           console.log("user", JSON.stringify(user, null, 2));
           console.log(token);
+          perm = true;
           next();
           //send user data
          // return res.status(201)
         } else {
+          perm = false;
           console.log('ERROR, USUARIO NO ENCONTRADO')
+
           res.redirect('/');
           //return res.status(401).send("Authentication failed");
         }
       } else {
+        perm =false;
         console.log('ERROR, USUARIO NO ENCONTRADO')
         res.redirect('/');
         //return res.status(401).send("Authentication failed");
