@@ -83,7 +83,7 @@ app.post('/logout', (req,res)=>{
 app.get('/menu',authVer,(req,res)=>{
 /*     const user = req.flash('user')[0];
     console.log(user); */
-    res.render('menu');
+    res.sendFile(path.join(__dirname + "/../web/pages/menu.html"));
 })
 
 async function main(){
