@@ -55,7 +55,8 @@ app.use((req,res,next)=>{
 db.sequelize.sync({ force: true }).then(() => {
   console.log("db has been re sync")
   createUser(112345675, 'passworxdxd', 'admin', 'Chupete', 'Suazo');
-createUser(112345679, '123', 'admin', 'Alexis', 'Sanchez');
+  createUser(112345679, '123', 'admin', 'Alexis', 'Sanchez');
+  createUser(201101751, '123', 'admin', 'Alexis', 'Sanchez')
 })
 
 //Rutas de la API
@@ -67,8 +68,6 @@ app.post('/login', login,  (req,res)=>{
 
     res.redirect('/menu');
     console.log('Success!');
-
-  
 })
 
 app.get('/menu',(req,res)=>{
@@ -77,15 +76,13 @@ app.get('/menu',(req,res)=>{
     res.render('menu');
 })
 
-
-
 async function main(){
   try {
     await sequelize.authenticate();
     app.listen(port, () => {
       console.log(`The server is listening at http://localhost:${port}`);
     });
-    
+
   } catch (error) {
     console.error('Error to connect to database', error);
   }

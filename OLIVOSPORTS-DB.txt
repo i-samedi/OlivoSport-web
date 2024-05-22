@@ -1,0 +1,185 @@
+Crear la DB
+CREATE DATABASE IF NOT EXISTS OlivoSportsDB;
+
+Usar la DB
+USE OlivoSportsDB;
+
+CREAR TABLAS--------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS Usuarios (
+    id_usuario BIGINT PRIMARY KEY,
+    rut VARCHAR(20) NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    contraseña VARCHAR(50) NOT NULL,
+    tipo_de_usuario VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Profesores (
+    id_profesor SERIAL PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    profesion VARCHAR(50) NOT NULL,
+    especialidad VARCHAR(50) NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
+);
+
+CREATE TABLE IF NOT EXISTS Horario (
+    id_horario SERIAL PRIMARY KEY,
+    dia_semana VARCHAR(20) NOT NULL,
+    hora_inicio TIME NOT NULL,
+    hora_termino TIME NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Cursos (
+    id_curso SERIAL PRIMARY KEY,
+    id_profesor INT NOT NULL,
+    id_horario INT NOT NULL,
+    estado BOOLEAN NOT NULL,
+    especialidad VARCHAR(50) NOT NULL,
+    FOREIGN KEY (id_profesor) REFERENCES Profesores(id_profesor),
+    FOREIGN KEY (id_horario) REFERENCES Horario(id_horario)
+);
+
+
+INGRESAR VALORES DE PRUEBA --------------------------------------------------------------------------------------
+INSERT INTO Usuarios (rut, nombre, apellido, contraseña, tipo_de_usuario)
+VALUES 
+    ('123456789', 'Juan', 'Pérez', 'contraseña123', 'Admin'),
+    ('111111111', 'Profesor1', 'Apellido1', 'contraseña1', 'Profesor'),
+    ('222222222', 'Profesor2', 'Apellido2', 'contraseña2', 'Profesor'),
+    ('333333333', 'Profesor3', 'Apellido3', 'contraseña3', 'Profesor'),
+    ('444444444', 'Profesor4', 'Apellido4', 'contraseña4', 'Profesor'),
+    ('555555555', 'Profesor5', 'Apellido5', 'contraseña5', 'Profesor'),
+    ('666666666', 'Profesor6', 'Apellido6', 'contraseña6', 'Profesor'),
+    ('777777777', 'Profesor7', 'Apellido7', 'contraseña7', 'Profesor'),
+    ('888888888', 'Profesor8', 'Apellido8', 'contraseña8', 'Profesor'),
+    ('999999999', 'Profesor9', 'Apellido9', 'contraseña9', 'Profesor');
+
+
+INSERT INTO Profesores (id_usuario, profesion, especialidad)
+VALUES 
+    (2, 'Preparador físico', 'Fútbol'),
+    (3, 'Entrenador', 'Tenis'),
+    (4, 'Instructor', 'Natación'),
+    (5, 'Entrenador', 'Baloncesto'),
+    (6, 'Entrenador', 'Atletismo'),
+    (7, 'Entrenador', 'Voleibol'),
+    (8, 'Preparador físico', 'Gimnasia'),
+    (9, 'Entrenador', 'Boxeo'),
+    (10, 'Instructor', 'Pilates');
+
+
+
+INSERT INTO Horario (dia_semana, hora_inicio, hora_termino)
+VALUES 
+    ('Lunes', '09:00:00', '11:00:00'),
+    ('Martes', '14:00:00', '16:00:00'),
+    ('Miércoles', '10:00:00', '12:00:00'),
+    ('Jueves', '15:00:00', '17:00:00'),
+    ('Viernes', '08:00:00', '10:00:00'),
+    ('Sábado', '16:00:00', '18:00:00');
+
+INSERT INTO Cursos (id_profesor, id_horario, estado, especialidad)
+VALUES 
+    (2, 1, true, 'Fútbol'),
+    (3, 2, true, 'Tenis'),
+    (4, 3, true, 'Natación'),
+    (5, 4, true, 'Baloncesto'),
+    (6, 5, true, 'Atletismo'),
+    (7, 6, true, 'Voleibol'),
+    (8, 1, true, 'Gimnasia'),
+    (9, 2, true, 'Boxeo'),
+    (2, 3, true, 'Pilates');
+
+
+QUERIES ---------------------------------------------------------------------------------------------------------------
+1. ver todos los profesores disponibles (no tienen una clase asignada):
+SELECT u.nombre, u.apellido, p.especialidad, p.profesion
+FROM Usuarios u
+JOIN Profesores p ON u.id_usuario = p.id_usuario
+WHERE p.id_profesor NOT IN (SELECT id_profesor FROM Cursos);
+
+--
+2. ver los profesores disponibles de un deporte/especialidad:
+SELECT Usuarios.nombre, Usuarios.apellido
+FROM Usuarios
+JOIN Profesores ON Usuarios.id_usuario = Profesores.id_usuario
+JOIN Cursos ON Profesores.id_profesor = Cursos.id_profesor
+WHERE Cursos.estado = true
+AND Cursos.especialidad = 'Tenis';
+
+2.1. ver todos los profesores:
+SELECT * FROM profesores p
+ORDER BY p.id_profesor ASC;
+
+2.2. ver todos los admin:
+SELECT * FROM usuarios u
+WHERE u.tipo_de_usuario = 'Admin'
+ORDER BY u.id_usuario ASC; 
+
+--
+3. estado de clases:
+SELECT estado
+FROM Cursos;
+
+3.1. cantidad de clases realizadas global:
+SELECT COUNT(*) AS clases_realizadas
+FROM Cursos
+WHERE estado = true;
+
+3.2. cantidad de clases no realizadas global:
+SELECT COUNT(*) AS clases_realizadas
+FROM Cursos
+WHERE estado = false;
+--
+4. datos de un profesor por su id:
+SELECT Usuarios.nombre, Usuarios.apellido, Profesores.profesion, Profesores.especialidad
+FROM Usuarios
+JOIN Profesores ON Usuarios.id_usuario = Profesores.id_usuario
+WHERE Profesores.id_profesor = 2;
+
+--
+5. todos los profesores de una especialidad:
+SELECT Usuarios.nombre, Usuarios.apellido
+FROM Usuarios
+JOIN Profesores ON Usuarios.id_usuario = Profesores.id_usuario
+WHERE Profesores.especialidad = 'Tenis';
+
+5.1 todos los profesores de una profesion:
+SELECT Usuarios.nombre, Usuarios.apellido
+FROM Usuarios
+JOIN Profesores ON Usuarios.id_usuario = Profesores.id_usuario
+WHERE Profesores.profesion = 'Entrenador';
+
+--
+6. ver todos los profes que tienen un curso (no disponible):
+SELECT Usuarios.nombre, Usuarios.apellido
+FROM Usuarios
+JOIN Profesores ON Usuarios.id_usuario = Profesores.id_usuario
+JOIN Cursos ON Profesores.id_profesor = Cursos.id_profesor
+WHERE Cursos.estado = true;
+
+--
+7. clases realizadas por un profesor:
+SELECT *
+FROM Cursos
+WHERE id_profesor = 2;
+
+7.1. Cantidad de clases realizadas por un profesor:
+SELECT COUNT(*) AS clases_realizadas
+FROM Cursos
+WHERE id_profesor = 2 AND estado = true;
+
+--
+8. encontrar id de profesor:
+SELECT id_profesor
+FROM Usuarios u
+JOIN Profesores p ON u.id_usuario = p.id_usuario
+WHERE u.nombre = 'Profesor1' AND u.apellido = 'Apellido1';
+
+--
+9. horario de un profesor de toda la semana:
+SELECT Horario.dia_semana, Horario.hora_inicio, Horario.hora_termino, Cursos.especialidad
+FROM Horario
+JOIN Cursos ON Horario.id_horario = Cursos.id_horario
+JOIN Profesores ON Cursos.id_profesor = Profesores.id_profesor
+WHERE Profesores.id_profesor = 2;
