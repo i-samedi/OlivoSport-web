@@ -19,7 +19,7 @@
 
     <div class="main-container d-flex">
         <div class="sidebar" id="side_nav">
-            <div class="header-box px-2 pt-3 pb-4 d-flex justify-content-between ">
+            <div class="header-box px-2 pt-3 pb-4 d-flex justify-content-center ">
                 <a href="https://olivossport.cl/"><img src="../image/logo.png" alt="logo"></a>
             </div>
     
@@ -31,6 +31,12 @@
                     </a>
                 </li>
 
+                <li class="">
+                    <a href="#" class="text-decoration-none px-3 py-2 d-block">
+                        <i class="fal fa-list"></i>
+                        Solicitudes
+                    </a>
+                </li>
 
                 <li class="">
                     <a href="#" class="text-decoration-none px-3 py-2 d-block">
@@ -62,7 +68,7 @@
         </div>
         <!-- ----------------------- END OF SIDEBAR ----------------------- -->
         <div class="content">
-
+ 
             <nav class="navbar navbar-expand-md navbar-light bg-light">
                 <div class="container-fluid">
                     <div class="d-flex justify-content-between d-md-none d-block">
@@ -122,6 +128,13 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                       </div>
                                       <div class="modal-body">
+
+                                        <div class="alert alert-danger" role="alert">
+                                            <h4 class="alert-heading">Importante!</h4>
+                                            Recuerda envíar la justificación de inasistencia con anticipación de 12 horas.
+                                            Una vez enviada la justificación, se enviara un correo electronico indicando si tu solicitud a sido aceptada o rechazada.
+                                          </div>
+
                                         <form>
                                           <div class="mb-3">
                                             <label for="recipient-name" class="col-form-label">Asunto:</label>
@@ -133,15 +146,16 @@
                                           </div>
                                           
                                           <div class="form-group">
-                                                <form action="" method="post" name="" enctype="multipart/form-data">
-                                                    <label class="col-xs-2 control-label">Adjuntar :</label>
-                                                    <div class="col-xs-3">
-                                                        <input type="file" name="archivo" title="seleccionar fichero" id="importData" accept=".pdf,.png,.jpeg" />
-                                                    </div>
-                                                </form>
+                                            <form>
+                                                <div class="form-group">
+                                                  <label for="exampleFormControlFile1">Adjuntar Archivo: </label>
+                                                  <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                                </div>
+                                              </form>
                                             </div>
                                         </form>
                                       </div>
+                                      
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                         <button type="button" class="btn" style="background: #C6F332;">Enviar mensaje</button>
