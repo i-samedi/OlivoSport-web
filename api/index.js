@@ -62,11 +62,11 @@ app.get("/user", checkAuth,(req,res) => {
 });
 
 app.get("/justificaciones", checkAuth,(req,res) => {
-    res.sendFile(path.join(__dirname +  '../web/pages/justificaciones.html'));
+    res.sendFile(path.join(__dirname +  '/../web/pages/justificaciones.html'));
 });
 
 app.get("/plantilla", checkAuth,(req,res) => {
-    res.sendFile(path.join(__dirname +  '../web/pages/plantilla.html'));
+    res.sendFile(path.join(__dirname +  '/../web/pages/plantilla.html'));
 });
 
 app.listen(port, () => {
