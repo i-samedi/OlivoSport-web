@@ -1,4 +1,4 @@
-const loginUser = document.getElementById('saveLogin');
+/* const loginUser = document.getElementById('saveLogin');
 
 loginUser.addEventListener('submit', (event) => {
     event.preventDefault(); // Prevent form from submitting
@@ -15,3 +15,4 @@ loginUser.addEventListener('submit', (event) => {
 //     })
 //         .then(x => console.log("hola"))
 // });
+ */

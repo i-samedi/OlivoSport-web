@@ -25,7 +25,7 @@
     
             <ul class="list-unstyled px-2"> 
                 <li class="">
-                    <a href="#" class="text-decoration-none px-3 py-2 d-block " >
+                    <a href="../pages/menu.html" class="text-decoration-none px-3 py-2 d-block " >
                         <i class="fal fa-home" ></i> 
                         Menu
                     </a>
@@ -45,7 +45,7 @@
                         </i> Clases</a></li>
 
                 <li class="">
-                    <a href="#" class="text-decoration-none px-3 py-2 d-block">
+                    <a href="../pages/user.html" class="text-decoration-none px-3 py-2 d-block">
                         <i class="fal fa-users"></i>
                         Perfil</a></li>
             </ul>
@@ -89,7 +89,52 @@
             <!-- ----------------------- END OF NAVBAR ----------------------- -->
 
             <div class="dashboard-content px-3 pt-4">
+                <div class="welcome-section">
+                    <div class="container">
+                      <div class="row justify-content-center" style="padding: 10px;">
+                        <div class="col-md-8 text-center ">
+                          <!-- <img src="../image/logo.png" alt="Logo" class="logo mb-4" style="
+                            background: radial-gradient(circle, rgba(89,89,89,1) 0%, rgba(64,64,64,1) 22%, rgba(45,45,45,1) 36%, rgba(41,41,41,1) 73%); 
+                            padding: 8px; 
+                            border-radius: 15px;"> -->
+                          <h1 class="mb-4 display-6 fw-bold">¡Bienvenido, <%= nombre %> <%= apellido %>!</h1>
+
+                          <p class="lead fst-italic fw-light">Información del centro administrativo.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 
+                  <div class="container mt-5">
+                    <div class="row justify-content-center">
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-body " style="background: #C6F332;">
+                            <h5 class="card-title fw-bold">Profesores</h5>
+                            <p class="card-text fw-normal fst-italic">[Cantidad de Profesores]</p>
+                            <a href="#" class="btn btn-dark ">Ir a Profesores</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-body" style="background: #C6F332;">
+                            <h5 class="card-title fw-bold">Clases</h5>
+                            <p class="card-text fw-normal fst-italic">[Cantidad de Clases]</p>
+                            <a href="#" class="btn btn-dark">Ir a clases</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-body" style="background: #C6F332;">
+                            <h5 class="card-title fw-bold">Usuarios Conectados</h5>
+                            <p class="card-text fw-normal fst-italic">[Cantidad de Usuarios Conectados]</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             </div>
 
 
