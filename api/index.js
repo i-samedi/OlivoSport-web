@@ -30,6 +30,7 @@ function checkAuth(req, res, next) {
         return next();
     } else {
         // Si el usuario no está autenticado, redirige al inicio de sesión
+        console.log("No esta autenticado");
         return res.redirect("/");
     }
 }
@@ -52,8 +53,20 @@ app.post("/login", async (req, res) => {
     }
 });
 
-app.get("/", (req,res) => {
-    res.sendFile(path.join(__dirname +  '/web/index.html'));
+app.get("/menu", checkAuth,(req,res) => {
+    res.sendFile(path.join(__dirname +  '/web/pages/menu.html'));
+});
+
+app.get("/user", checkAuth,(req,res) => {
+    res.sendFile(path.join(__dirname +  '/../web/pages/user.html'));
+});
+
+app.get("/justificaciones", checkAuth,(req,res) => {
+    res.sendFile(path.join(__dirname +  '/../web/pages/justificaciones.html'));
+});
+
+app.get("/plantilla", checkAuth,(req,res) => {
+    res.sendFile(path.join(__dirname +  '/../web/pages/plantilla.html'));
 });
 
 app.listen(port, () => {
