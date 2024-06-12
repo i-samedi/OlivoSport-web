@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-mongoose.connect("mongodb://localhost:27017/OlivosSport").then(()=>{
+mongoose.connect("mongodb+srv://pipemendez:rn0pWgRZJk4FJ9T7@olivossport.exmftev.mongodb.net/OlivosSportDB").then(()=>{
     console.log("MongoDB conectado")
 }).catch(()=>{
     console.log("Conexion fallida con MongoDB")
@@ -25,6 +25,6 @@ const LoginSchema = new mongoose.Schema({
     }
 });
 
-mongoose.model("Usuarios", LoginSchema);
+mongoose.model("usuarios", LoginSchema);
 
 export default mongoose;

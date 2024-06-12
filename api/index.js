@@ -4,7 +4,7 @@ import { dirname } from 'path';
 import path from 'path';
 import bodyParser from "body-parser";
 import mongoose from "./mongodb.js";
-const collection = mongoose.model("Usuarios");
+const collection = mongoose.model("usuarios");
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
