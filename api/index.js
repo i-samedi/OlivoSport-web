@@ -20,6 +20,7 @@ app.use(express.urlencoded({extended:false}));
 
 app.use(express.static(__dirname + '/../web'));
 
+//RUTAS PROTEGIDAS
 app.get("/menu", checkAuth, (req, res) => {
     res.render("menu");
 });
@@ -42,8 +43,9 @@ app.post("/login", async (req, res) => {
         if (check && check.password === req.body.password) {
             const nombre = check.nombre;
             const apellido = check.apellido;
-            console.log("Nombre del usuario:", nombre, apellido);
-            res.render("menu", { nombre: nombre, apellido: apellido });
+            const tipo_de_usuario = check.tipo_de_usuario;
+            console.log(`Nombre del ${tipo_de_usuario}: ${nombre} ${apellido}`);
+            res.render("menu", { nombre: nombre, apellido: apellido, tipo_de_usuario: tipo_de_usuario });
         } else {
             res.redirect("/");
         }

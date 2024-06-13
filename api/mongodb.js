@@ -22,6 +22,10 @@ const LoginSchema = new mongoose.Schema({
     apellido: {
         type: String,
         required: true
+    },
+    tipo_de_usuario: {
+        type: String,
+        required: true
     }
 });
 
