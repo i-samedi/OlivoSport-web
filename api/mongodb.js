@@ -1,10 +1,14 @@
 import mongoose from 'mongoose';
+import bcyrpt from 'bcrypt';
 
 mongoose.connect("mongodb+srv://pipemendez:rn0pWgRZJk4FJ9T7@olivossport.exmftev.mongodb.net/OlivosSportDB").then(()=>{
     console.log("MongoDB conectado")
 }).catch(()=>{
     console.log("Conexion fallida con MongoDB")
 })
+
+
+
 
 const LoginSchema = new mongoose.Schema({
     rut: { 
@@ -13,7 +17,8 @@ const LoginSchema = new mongoose.Schema({
     },
     password: {
         type: String, 
-        required: true 
+        required: true, 
+        bcrypt: true
     },
     nombre: {
         type: String,
@@ -29,6 +34,16 @@ const LoginSchema = new mongoose.Schema({
     }
 });
 
+LoginSchema.method('setPasswrod', async function(rut, password){
+    const hash = await bcrypt.hash(password, 10);
+    this.password = hash;
+});
+
+LoginSchema.method('validPasswrod', async function(rut, unhashed){
+    return await bcrypt.compare(unhashed, this.password);
+});
+
+//LoginSchema.plugin(mongooseBcrypt);
 mongoose.model("usuarios", LoginSchema);
 
 export default mongoose;
