@@ -48,7 +48,8 @@ router.get("/plantilla", checkAuth, (req, res) => {
 });
 
 router.get("/cursos", checkAuth, (req, res) => {
-    res.render("cursos");
+    const { nombre, apellido, tipo_de_usuario } = res.locals.user;
+    res.render("cursos", { nombre, apellido, tipo_de_usuario });
 });
 
 export default router;
