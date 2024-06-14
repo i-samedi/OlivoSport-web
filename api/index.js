@@ -8,6 +8,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 const collection = mongoose.model("usuarios");
 import usuarios from "./schemas/loginSchema.js";
+import router from "./routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -30,26 +31,22 @@ app.use(express.urlencoded({extended:false}));
 
 app.use(express.static(__dirname + '/../web'));
 
-//RUTAS PROTEGIDAS
-
-function checkAuth(req, res, next) {
+app.use(async (req, res, next) => {
     if (req.session && req.session.userId) {
-        console.log("sesion iniciada con exito")
-        next();
-    } else {
-        console.log("Sesion no iniciada")
-        res.redirect("/");
+        try {
+            const user = await collection.findById(req.session.userId).lean();
+            if (user) {
+                res.locals.user = user;
+            }
+        } catch (err) {
+            console.error(err);
+        }
     }
-    
-}
-
-app.get('/', (req,res) =>{
-    res.render("index");
-})
-
-app.get("/menu", checkAuth, (req, res) => {
-    res.render("menu");
+    next();
 });
+
+//se importan las rutas del archivo routes.js
+app.use(router);
 
 app.post("/login", async (req, res) => {
     try {
@@ -71,36 +68,6 @@ app.post("/login", async (req, res) => {
         res.redirect("/");
     }
 });
-
-app.get('/logout', checkAuth, (req, res) => {
-    req.session.destroy((err) => {
-        if(err) {
-            return console.log(err);
-        }
-        console.log("Sesion cerrada con exito!");
-        res.redirect('/');
-    });
-});
-
-app.get("/menu", checkAuth,(req,res) => {
-    res.render("menu");
-});
-
-app.get("/user", checkAuth,(req,res) => {
-    res.render("user");
-});
-
-app.get("/justificaciones", checkAuth,(req,res) => {
-    res.render("justificaciones")
-});
-
-app.get("/plantilla", checkAuth,(req,res) => {
-    res.render("plantilla")
-});
-
-app.get("/cursos", checkAuth, (req,res) =>{
-    res.render("cursos")
-})
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
