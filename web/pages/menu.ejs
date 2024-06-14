@@ -103,12 +103,15 @@
                             border-radius: 15px;"> -->
                           <h1 class="mb-4 display-6 fw-bold">¡Bienvenido, <%= tipo_de_usuario %> <%= nombre %> <%= apellido %>!</h1>
 
+                          <% if (tipo_de_usuario === 'Administrador') { %>
                           <p class="lead fst-italic fw-light">Información del centro administrativo.</p>
+                          <% } %>
                         </div>
                       </div>
                     </div>
                   </div>
                 
+                <% if (tipo_de_usuario === 'Administrador') { %>
                   <div class="container mt-5">
                     <div class="row justify-content-center">
                       <div class="col-md-4">
@@ -139,6 +142,7 @@
                       </div>
                     </div>
                   </div>
+                <% } %>
             </div>
 
 
