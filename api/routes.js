@@ -48,15 +48,17 @@ router.get("/plantilla", checkAuth, (req, res) => {
     res.render("plantilla", {tipo_de_usuario: 'Administrador'});
 });
 
-router.get("/profesores", checkAuth, (req, res) => {
+/* router.get("/profesores", checkAuth, (req, res) => {
     const { nombre, apellido, tipo_de_usuario } = res.locals.user;
     res.render("profesores", { nombre, apellido, tipo_de_usuario });
-});
+}); */
 
 //PRUEBA DE FUNCIONAMIENTO DE CRUD DE PROFESORES (CREE UN NUEVO ARCHIVO EJS PA VER COMO FUNCIONAN) (HAy que adaptarlo)
 
-router.get('/profes', async (req, res) => {
+router.get('/profes',checkAuth, async (req, res) => {
     const profesores = await Profesor.find({});
+    const { nombre, apellido, tipo_de_usuario } = res.locals.user;
+   // res.render("profes", { nombre, apellido, tipo_de_usuario });
     res.render('profes', { profesores: profesores }); // Cambiado a profes
 });
 
