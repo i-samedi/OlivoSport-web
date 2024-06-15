@@ -40,11 +40,11 @@ router.get("/user", checkAuth, (req, res) => {
 });
 
 router.get("/justificaciones", checkAuth, (req, res) => {
-    res.render("justificaciones");
+    res.render("justificaciones", {tipo_de_usuario: 'Administrador'});
 });
 
 router.get("/plantilla", checkAuth, (req, res) => {
-    res.render("plantilla");
+    res.render("plantilla", {tipo_de_usuario: 'Administrador'});
 });
 
 router.get("/profesores", checkAuth, (req, res) => {
