@@ -1,4 +1,4 @@
-$(document).ready(function() {
+/* $(document).ready(function() {
     // Verifica si el DataTable ya ha sido inicializado
     if ($.fn.DataTable.isDataTable('#example')) {
         // Destruye el DataTable existente
@@ -69,4 +69,4 @@ function actualizarListaNoDisponibles() {
             motivoList.append('<li>' + profesor.nombre + ' - Motivo: ' + profesor.especialidad + '</li>');
         });
     }
-}
+} */

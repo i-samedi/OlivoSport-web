@@ -1,4 +1,5 @@
 import express from 'express';
+import Profesor from './schemas/profesorSchema.js';
 
 const router = express.Router();
 
@@ -51,6 +52,42 @@ router.get("/profesores", checkAuth, (req, res) => {
     const { nombre, apellido, tipo_de_usuario } = res.locals.user;
     res.render("profesores", { nombre, apellido, tipo_de_usuario });
 });
+
+//PRUEBA DE FUNCIONAMIENTO DE CRUD DE PROFESORES (CREE UN NUEVO ARCHIVO EJS PA VER COMO FUNCIONAN) (HAy que adaptarlo)
+
+router.get('/profes', async (req, res) => {
+    const profesores = await Profesor.find({});
+    res.render('profes', { profesores: profesores }); // Cambiado a profes
+});
+
+router.post('/profes', async (req, res) => {
+    const nuevoProfesor = new Profesor(req.body);
+    await nuevoProfesor.save();
+    res.redirect('/profes');
+});
+
+router.post('/profes/edit/:id', async (req, res) => {
+    await Profesor.findByIdAndUpdate(req.params.id, req.body);
+    res.redirect('/profes');
+});
+
+router.post('/profes/delete/:id', async (req, res) => {
+    await Profesor.findByIdAndDelete(req.params.id);
+    res.redirect('/profes');
+});
+
+/* router.get('/profesores', async (req, res) => {
+    try {
+        // Obtener todos los profesores de la colección
+        const profesores = await collection.find().toArray();
+
+        // Renderizar la vista con los datos de los profesores
+        res.render('profesores', { profesores });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Hubo un error al obtener los profesores' });
+    }
+}); */
 
 
 export default router;
