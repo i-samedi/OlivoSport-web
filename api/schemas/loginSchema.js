@@ -24,16 +24,11 @@ const LoginSchema = new mongoose.Schema({
     }
 });
 
-LoginSchema.method('setPassword', async function(password){
-    const hash = await bcrypt.hash(password, 10);
-    this.password = hash;
-});
 
-LoginSchema.method('validPassword', async function(unhashed){
-    return await bcrypt.compare(unhashed, this.password);
-});
 
-mongoose.model("usuarios", LoginSchema);
 
-export default mongoose.model("usuarios", LoginSchema);
+
+const Login = mongoose.model("usuarios", LoginSchema);
+
+export default Login;
 
