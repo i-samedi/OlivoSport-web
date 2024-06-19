@@ -51,17 +51,21 @@ app.use(router);
 
 app.post("/login", async (req, res) => {
     try {
-        const check = await collection.findOne({ rut: req.body.rut });
+        const check = await Login.findOne({ rut: req.body.rut });
         
-        if (check && check.password === req.body.password) {
-            let passwordHash = await bcrypt.hash(req.body.password, 8);
-            req.session.userId = check._id;
-            const nombre = check.nombre;
-            const apellido = check.apellido;
-            const tipo_de_usuario = check.tipo_de_usuario;
-            console.log(`Nombre del ${tipo_de_usuario}: ${nombre} ${apellido}`);
-            console.log(passwordHash);
-            res.render("menu", { nombre: nombre, apellido: apellido, tipo_de_usuario: tipo_de_usuario });
+        if (check) {
+            const isMatch = await bcrypt.compare(req.body.password, check.password);
+            if (isMatch) {
+                req.session.userId = check._id;
+                const nombre = check.nombre;
+                const apellido = check.apellido;
+                const tipo_de_usuario = check.tipo_de_usuario;
+                console.log(`Nombre del ${tipo_de_usuario}: ${nombre} ${apellido}`);
+                res.render("menu", { nombre: nombre, apellido: apellido, tipo_de_usuario: tipo_de_usuario });
+            } else {
+                console.log("Usuario o contraseña incorrectos");
+                res.redirect("/");
+            }
         } else {
             console.log("Usuario o contraseña incorrectos");
             res.redirect("/");
@@ -98,8 +102,8 @@ const addUser = async (rut, password, nombre, apellido, tipo_de_usuario) => {
 };
 
 // REGISTRAR USUARIOS NUEVOS !!!!! ///////////////////////////////////////////////////////
-/* addUser('12345', 'contraseña', 'felipe', 'silvio', 'Admin');
-addUser('12345', '123', 'Felipe', 'Mendez', 'Admin');
+/* addUser('12345', 'contraseña', 'felipe', 'silvio', 'Administrador');
+addUser('123456', '123', 'Felipe', 'Mendez', 'Administrador');
 addUser('12345678-9', '123', 'Jorge', 'Elliot', 'Profesor'); */
 
 app.listen(port, () => {

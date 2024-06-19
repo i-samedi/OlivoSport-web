@@ -24,10 +24,6 @@ const LoginSchema = new mongoose.Schema({
     }
 });
 
-
-
-
-
 const Login = mongoose.model("usuarios", LoginSchema);
 
 export default Login;
