@@ -74,50 +74,84 @@ window.onload = function() {
 </head>
 <body>
 
-    <div class="main-container d-flex">
-        <div class="sidebar" id="side_nav">
-            <div class="header-box px-2 pt-3 pb-4 d-flex justify-content-between ">
-                <a href="https://olivossport.cl/"><img src="../image/logo.png" alt="logo"></a>
+    <body>
+
+        <div class="main-container d-flex">
+            <div class="sidebar" id="side_nav">
+                <div class="header-box px-2 pt-3 pb-4 d-flex justify-content-between ">
+                    <a href="https://olivossport.cl/"><img src="../image/logo.png" alt="logo"></a>
+                </div>
+        
+                <ul class="list-unstyled px-2"> 
+                    <li class="">
+                        <a href="/menu" class="text-decoration-none px-3 py-2 d-block " >
+                            <i class="fal fa-home" ></i> 
+                            Menu
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="/justificaciones" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="fal fa-list"></i>
+                            Justificaciones
+                        </a>
+                    </li>
+    
+    
+                    <li class="">
+                        <a href="/profes" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="fal fa-list"></i>
+                            Profesores
+                        </a>
+                    </li>
+                        
+                    <li class="">
+                        <a href="#" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="fal fa-envelope-open-text">
+                            </i> Clases</a></li>
+    
+                    <li class="">
+                        <a href="/user" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="fal fa-users"></i>
+                            Perfil</a></li>
+                </ul>
+    
+                <hr class="h-color mx-2">
+        
+                <ul class="list-unstyled px-2">
+                    <li class=""><a href="../index.html" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bars"></i>
+                            Cerrar Sesión</a></li>
+                    <!-- <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bell"></i>
+                            Notifications</a></li> -->
+        
+                </ul>
             </div>
+            <!-- ----------------------- END OF SIDEBAR ----------------------- -->
+            <div class="content">
     
-            <ul class="list-unstyled px-2"> 
-                <li class="">
-                    <a href="/menu" class="text-decoration-none px-3 py-2 d-block " >
-                        <i class="fal fa-home" ></i> 
-                        Menu
-                    </a>
-                </li>
-
-
-                <li class="">
-                    <a href="/profesores" class="text-decoration-none px-3 py-2 d-block">
-                        <i class="fal fa-list"></i>
-                        Profesores
-                    </a>
-                </li>
-                    
-                <li class="">
-                    <a href="/plantilla" class="text-decoration-none px-3 py-2 d-block">
-                        <i class="fal fa-envelope-open-text">
-                        </i> Clases</a></li>
-
-                <li class="">
-                    <a href="/user" class="text-decoration-none px-3 py-2 d-block">
-                        <i class="fal fa-users"></i>
-                        Perfil</a></li>
-            </ul>
-            
-
-            <hr class="h-color mx-2">
-    
-            <ul class="list-unstyled px-2">
-                <li class=""><a href="/logout" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bars"></i>
-                        Cerrar Sesión</a></li>
-                <!-- <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bell"></i>
-                        Notifications</a></li> -->
-    
-            </ul>
-        </div>
+                <nav class="navbar navbar-expand-md navbar-light bg-light">
+                    <div class="container-fluid">
+                        <div class="d-flex justify-content-between d-md-none d-block">
+                            <button class="btn px-1 py-0 open-btn me-md-2 " type="button">
+                                <i class="fal fa-stream">
+                                    <span class="material-symbols-outlined">menu</span>
+                                </i>
+                            </button>
+                        </div>
+                        <button class="navbar-toggler p-0 border-0" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fal fa-bars"></i>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                            <ul class="navbar-nav mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a href="#"><img src="../image/profile.jpg" style="height: 40px; width: 40px;"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
         <!-- ----------------------- END OF SIDEBAR ----------------------- -->
         <div class="content">
 

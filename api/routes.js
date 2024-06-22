@@ -91,5 +91,8 @@ router.post('/profes/delete/:id', async (req, res) => {
     }
 }); */
 
+router.get("/cursos", checkAuth, (req, res) => {
+    res.render("cursos", {tipo_de_usuario: 'Administrador'});
+});
 
 export default router;
