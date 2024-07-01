@@ -78,8 +78,13 @@ router.post('/profes', async (req, res) => {
 });
 
 router.post('/profes/edit/:id', async (req, res) => {
-    await Profesor.findByIdAndUpdate(req.params.id, req.body);
-    res.redirect('/profes');
+    try {
+        await Profesor.findByIdAndUpdate(req.params.id, req.body);
+        res.redirect('/profes');
+    } catch (error) {
+        console.error('Error al actualizar el profesor:', error);
+        res.status(500).send('Error al actualizar el profesor');
+    }
 });
 
 router.post('/profes/delete/:id', async (req, res) => {

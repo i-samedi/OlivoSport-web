@@ -169,13 +169,7 @@ window.onload = function() {
                         aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fal fa-bars"></i>
                     </button>
-                    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                        <ul class="navbar-nav mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a href="#"><img src="../image/profile.jpg" style="height: 40px; width: 40px;"></a>
-                            </li>
-                        </ul>
-                    </div>
+
                 </div>
             </nav>
             <!-- ----------------------- END OF NAVBAR ----------------------- -->
@@ -253,39 +247,56 @@ window.onload = function() {
         });
     </script>
 
+<!-- Modal de edición -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Profesor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" method="POST">
+                    <input type="hidden" id="editId" name="id">
+                    <div class="mb-3">
+                        <label for="editNombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="editNombre" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editEspecialidad" class="form-label">Especialidad</label>
+                        <input type="text" class="form-control" id="editEspecialidad" name="especialidad" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCursos" class="form-label">Cursos</label>
+                        <input type="text" class="form-control" id="editCursos" name="cursos" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editHorarios" class="form-label">Horarios</label>
+                        <input type="text" class="form-control" id="editHorarios" name="horarios" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDisponibilidad" class="form-label">Disponibilidad</label>
+                        <input type="text" class="form-control" id="editDisponibilidad" name="disponibilidad" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script para mostrar el modal y llenar los datos del formulario -->
 <script>
-function editarProfesor(id, nombre, especialidad, cursos, horarios, disponibilidad) {
-    let form = document.createElement('form');
-    form.method = 'POST';
-    form.action = `/profes/edit/${id}`;
-    
-    form.innerHTML = `
-        <h2>Editar Profesor</h2>
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" name="nombre" value="${nombre}" required>
-        </div>
-        <div class="mb-3">
-            <label for="especialidad" class="form-label">Especialidad</label>
-            <input type="text" class="form-control" name="especialidad" value="${especialidad}" required>
-        </div>
-        <div class="mb-3">
-            <label for="cursos" class="form-label">Cursos</label>
-            <input type="text" class="form-control" name="cursos" value="${cursos}" required>
-        </div>
-        <div class="mb-3">
-            <label for="horarios" class="form-label">Horarios</label>
-            <input type="text" class="form-control" name="horarios" value="${horarios}" required>
-        </div>
-        <div class="mb-3">
-            <label for="disponibilidad" class="form-label">Disponibilidad</label>
-            <input type="text" class="form-control" name="disponibilidad" value="${disponibilidad}" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    `;
-    
-    document.body.appendChild(form);
-}
+    function editarProfesor(id, nombre, especialidad, cursos, horarios, disponibilidad) {
+        $('#editId').val(id);
+        $('#editNombre').val(nombre);
+        $('#editEspecialidad').val(especialidad);
+        $('#editCursos').val(cursos);
+        $('#editHorarios').val(horarios);
+        $('#editDisponibilidad').val(disponibilidad);
+        $('#editForm').attr('action', '/profes/edit/' + id); // Ajusta la acción del formulario
+        $('#editModal').modal('show');
+    }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
