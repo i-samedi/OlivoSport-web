@@ -40,8 +40,17 @@ router.get("/user", checkAuth, (req, res) => {
     });
 });
 
-router.get("/justificaciones", checkAuth, (req, res) => {
-    res.render("justificaciones", {tipo_de_usuario: 'Administrador'});
+router.get('/justificaciones', checkAuth, async (req, res) => {
+    try {
+        const profesoresDisponibles = await Profesor.find({
+            disponibilidad: { $regex: new RegExp('^si$', 'i') }
+        });
+        const { tipo_de_usuario } = res.locals.user;
+        res.render('justificaciones', { tipo_de_usuario, profesores: profesoresDisponibles });
+    } catch (error) {
+        console.error('Error al obtener profesores:', error);
+        res.status(500).send(error);
+    }
 });
 
 router.get("/plantilla", checkAuth, (req, res) => {
