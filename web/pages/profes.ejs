@@ -230,18 +230,46 @@ window.onload = function() {
                             <label for="addProfesorMateria" class="form-label">Especialidad</label>
                             <input type="text" class="form-control" id="addProfesorMateria" name="especialidad" required>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="addProfesorDeporte" class="form-label">Cursos</label>
                             <input type="text" class="form-control" id="addProfesorDeporte" name="cursos" required>
-                        </div>
+                        </div> -->
                         <div class="mb-3">
+                            <label for="addProfesorDeporte" class="form-label">Cursos</label>
+                            <select class="form-control" id="addProfesorDeporte" name="cursos" required>
+                                <option value="Futbol">Futbol</option>
+                                <option value="Tenis">Tenis</option>
+                                <option value="Padel">Padel</option>
+                                <option value="Basquetbol">Basquetbol</option>
+                                <option value="Natacion">Natacion</option>
+                            </select>
+                        </div>                        
+                        <!-- <div class="mb-3">
                             <label for="addProfesorHorario" class="form-label">Horario</label>
                             <input type="text" class="form-control" id="addProfesorHorario" name="horarios" required>
-                        </div>
+                        </div> -->
                         <div class="mb-3">
+                            <label for="addProfesorHorario" class="form-label">Horario</label>
+                            <select class="form-control" id="addProfesorHorario" name="horarios" required>
+                                <option value="08:00 - 10:00">08:00 - 10:00</option>
+                                <option value="10:00 - 12:00">10:00 - 12:00</option>
+                                <option value="12:00 - 14:00">12:00 - 14:00</option>
+                                <option value="14:00 - 16:00">14:00 - 16:00</option>
+                                <option value="16:00 - 18:00">16:00 - 18:00</option>
+                                <option value="Lunes a Viernes">Lunes a Viernes</option>
+                            </select>
+                        </div>
+                        <!-- <div class="mb-3">
                             <label for="addProfesorDisponible" class="form-label">Disponible</label>
                             <input type="text" class="form-control" id="addProfesorDisponible" name="disponibilidad" required>
-                        </div>
+                        </div> -->
+                        <div class="mb-3">
+                            <label for="addProfesorDisponible" class="form-label">Disponible</label>
+                            <select class="form-control" id="addProfesorDisponible" name="disponibilidad" required>
+                                <option value="Si">Sí</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>                        
                         <button type="submit" class="btn btn-primary">Agregar Profesor</button>
                     </form>
                 </div>
@@ -276,18 +304,46 @@ window.onload = function() {
                         <label for="editEspecialidad" class="form-label">Especialidad</label>
                         <input type="text" class="form-control" id="editEspecialidad" name="especialidad" required>
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="editCursos" class="form-label">Cursos</label>
                         <input type="text" class="form-control" id="editCursos" name="cursos" required>
-                    </div>
+                    </div> -->
                     <div class="mb-3">
+                        <label for="editCursos" class="form-label">Cursos</label>
+                        <select class="form-control" id="editCursos" name="cursos" required>
+                            <option value="Futbol">Futbol</option>
+                            <option value="Tenis">Tenis</option>
+                            <option value="Padel">Padel</option>
+                            <option value="Basquetbol">Basquetbol</option>
+                            <option value="Natacion">Natacion</option>
+                        </select>
+                    </div> 
+                    <!-- <div class="mb-3">
                         <label for="editHorarios" class="form-label">Horarios</label>
                         <input type="text" class="form-control" id="editHorarios" name="horarios" required>
-                    </div>
+                    </div> -->
                     <div class="mb-3">
+                        <label for="editHorarios" class="form-label">Horarios</label>
+                        <select class="form-control" id="editHorarios" name="horarios" required>
+                            <option value="08:00 - 10:00">08:00 - 10:00</option>
+                            <option value="10:00 - 12:00">10:00 - 12:00</option>
+                            <option value="12:00 - 14:00">12:00 - 14:00</option>
+                            <option value="14:00 - 16:00">14:00 - 16:00</option>
+                            <option value="16:00 - 18:00">16:00 - 18:00</option>
+                            <option value="Lunes a Viernes">Lunes a Viernes</option>
+                        </select>
+                    </div>
+                    <!-- <div class="mb-3">
                         <label for="editDisponibilidad" class="form-label">Disponibilidad</label>
                         <input type="text" class="form-control" id="editDisponibilidad" name="disponibilidad" required>
-                    </div>
+                    </div> -->
+                    <div class="mb-3">
+                        <label for="editDisponibilidad" class="form-label">Disponibilidad</label>
+                        <select class="form-control" id="editDisponibilidad" name="disponibilidad" required>
+                            <option value="Si">Sí</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>  
                     <button type="submit" class="btn btn-primary">Guardar cambios</button>
                 </form>
             </div>
