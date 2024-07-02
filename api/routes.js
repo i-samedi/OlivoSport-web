@@ -1,8 +1,13 @@
 import express from 'express';
+import multer from 'multer';
 import Profesor from './schemas/profesorSchema.js';
 import Cursos from './schemas/cursosSchema.js';
+import Justificacion from './schemas/justificacionSchema.js';
 
 const router = express.Router();
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 function checkAuth(req, res, next) {
     if (req.session && req.session.userId) {
@@ -137,5 +142,27 @@ router.post('/cursos/delete/:id', async (req, res) => {
     }
 });
 
+router.post('/crear-justificacion', checkAuth, upload.single('archivo'), async (req, res) => {
+    try {
+      const nuevaJustificacion = new Justificacion({
+        usuario: req.session.userId,
+        asunto: req.body.asunto,
+        descripcion: req.body.descripcion,
+        archivo: req.file ? {
+          nombre: req.file.originalname,
+          datos: req.file.buffer,
+          contentType: req.file.mimetype
+        } : undefined
+      });
+  
+      await nuevaJustificacion.save();
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Error al crear la justificación:', error);
+      res.status(500).json({ success: false, message: 'Error al crear la justificación' });
+    }
+  });
+
+  
 
 export default router;
