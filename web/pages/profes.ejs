@@ -106,7 +106,7 @@ window.onload = function() {
                     </li>
                         
                     <li class="">
-                        <a href="#" class="text-decoration-none px-3 py-2 d-block">
+                        <a href="/cursos" class="text-decoration-none px-3 py-2 d-block">
                             <i class="fal fa-envelope-open-text">
                             </i> Clases</a></li>
     
@@ -208,44 +208,54 @@ window.onload = function() {
             </tr>
             <% }); %>
         </tbody>
-    </table>
+        <!-- boton para desplegar la ventana modal de añadir profesor -->
+        <button class="btn btn-primary" onclick="mostrarModalAgregarProfesor()">Agregar Profesor</button>
 
-    <div class="container mt-5">
-        <button id="showFormButton" class="btn btn-primary mb-3">Añadir Profesor</button>
-        <div id="profesorForm" class="card p-4">
-            <h2>Añadir Profesor</h2>
-            <form action="/profes" method="POST">
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+    </table>
+<!-- Modal para agregar profesor -->
+    <div class="modal fade" id="addProfesorModal" tabindex="-1" aria-labelledby="addProfesorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProfesorModalLabel">Agregar Profesor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="mb-3">
-                    <label for="especialidad" class="form-label">Especialidad</label>
-                    <input type="text" class="form-control" id="especialidad" name="especialidad" required>
+                <div class="modal-body">
+                    <form id="addProfesorForm" action="/profes" method="POST">
+                        <div class="mb-3">
+                            <label for="addProfesorNombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="addProfesorNombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProfesorMateria" class="form-label">Especialidad</label>
+                            <input type="text" class="form-control" id="addProfesorMateria" name="especialidad" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProfesorDeporte" class="form-label">Cursos</label>
+                            <input type="text" class="form-control" id="addProfesorDeporte" name="cursos" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProfesorHorario" class="form-label">Horario</label>
+                            <input type="text" class="form-control" id="addProfesorHorario" name="horarios" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProfesorDisponible" class="form-label">Disponible</label>
+                            <input type="text" class="form-control" id="addProfesorDisponible" name="disponibilidad" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar Profesor</button>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    <label for="cursos" class="form-label">Cursos</label>
-                    <input type="text" class="form-control" id="cursos" name="cursos" required>
-                </div>
-                <div class="mb-3">
-                    <label for="horarios" class="form-label">Horarios</label>
-                    <input type="text" class="form-control" id="horarios" name="horarios" required>
-                </div>
-                <div class="mb-3">
-                    <label for="disponibilidad" class="form-label">Disponibilidad</label>
-                    <input type="text" class="form-control" id="disponibilidad" name="disponibilidad" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Añadir</button>
-            </form>
+            </div>
         </div>
     </div>
 
+    <!-- Script para mostrar el modal y añadir profesor -->
     <script>
-        document.getElementById("showFormButton").addEventListener("click", function() {
-            const form = document.getElementById("profesorForm");
-            form.classList.toggle("show");
-        });
+        function mostrarModalAgregarProfesor() {
+            $('#addProfesorModal').modal('show');
+        }
     </script>
+
 
 <!-- Modal de edición -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
