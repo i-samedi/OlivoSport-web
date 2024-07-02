@@ -40,12 +40,44 @@ router.get("/menu", checkAuth, (req, res) => {
     res.render("menu", { nombre, apellido, tipo_de_usuario });
 });
 
-router.get("/user", checkAuth, (req, res) => {
-    res.render("user", {
-        nombre: res.locals.user.nombre,
-        apellido: res.locals.user.apellido,
-        tipo_de_usuario: res.locals.user.tipo_de_usuario
-    });
+router.get('/user', checkAuth, async (req, res) => {
+    try {
+        const { nombre, apellido, tipo_de_usuario } = res.locals.user;
+        
+        if (tipo_de_usuario === 'Administrador') {
+            // Renderizar la vista 'user' para administradores
+            res.render('user', {
+                nombre,
+                apellido,
+                tipo_de_usuario
+            });
+
+        // Si es profesor, entonces accede a sus atributos
+        } else {
+            // Buscar el perfil de profesor asociado al usuario
+            const profesor = await Profesor.findOne({ usuario: req.session.userId });
+
+            if (!profesor) {
+                // Si no se encuentra un perfil de profesor, manejar según sea necesario
+                console.log('No se encontró un perfil de profesor asociado a este usuario');
+                res.status(404).send('Perfil de profesor no encontrado');
+                return;
+            }
+
+            // Renderizar la vista 'user' con los datos del profesor y la cantidad de cursos
+            res.render('user', {
+                nombre,
+                apellido,
+                tipo_de_usuario,
+                especialidad: profesor.especialidad || '',
+                cursos: profesor.cursos || [],
+                horarios: profesor.horarios || [],
+            });
+        }
+    } catch (error) {
+        console.error('Error al obtener los datos del usuario:', error);
+        res.status(500).send('Error al obtener los datos del usuario');
+    }
 });
 
 router.get('/justificaciones', checkAuth, async (req, res) => {
