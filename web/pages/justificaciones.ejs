@@ -25,33 +25,37 @@
     
             <ul class="list-unstyled px-2"> 
                 <li class="">
-                    <a href="./menu.html" class="text-decoration-none px-3 py-2 d-block " >
+                    <a href="/menu" class="text-decoration-none px-3 py-2 d-block " >
                         <i class="fal fa-home" ></i> 
                         Menu
                     </a>
                 </li>
 
                 <li class="">
-                    <a href="./justificaciones.html" class="text-decoration-none px-3 py-2 d-block">
+                    <a href="/justificaciones" class="text-decoration-none px-3 py-2 d-block">
                         <i class="fal fa-list"></i>
                         Justificaciones
                     </a>
                 </li>
 
-                <li class="">
-                    <a href="#" class="text-decoration-none px-3 py-2 d-block">
-                        <i class="fal fa-list"></i>
-                        Profesores
-                    </a>
-                </li>
-                    
-                <li class="">
-                    <a href="#" class="text-decoration-none px-3 py-2 d-block">
-                        <i class="fal fa-envelope-open-text">
-                        </i> Clases</a></li>
+                <% if (tipo_de_usuario === 'Administrador') { %>
+                    <li class="">
+                        <a href="/profes" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="fal fa-list"></i>
+                            Profesores
+                        </a>
+                    </li>
+                
+                    <li class="">
+                        <a href="/cursos" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="fal fa-envelope-open-text">
+                            </i> Clases
+                        </a>
+                    </li>
+                <% } %>
 
                 <li class="">
-                    <a href="./user.html" class="text-decoration-none px-3 py-2 d-block">
+                    <a href="/user" class="text-decoration-none px-3 py-2 d-block">
                         <i class="fal fa-users"></i>
                         Perfil</a></li>
             </ul>
@@ -59,7 +63,7 @@
             <hr class="h-color mx-2">
     
             <ul class="list-unstyled px-2">
-                <li class=""><a href="../index.html" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bars"></i>
+                <li class=""><a href="/logout" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bars"></i>
                         Cerrar Sesión</a></li>
                 <!-- <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bell"></i>
                         Notifications</a></li> -->
@@ -154,12 +158,22 @@
                           <form>
                             <div class="mb-3">
                               <label for="substituteTeacher" class="form-label">Seleccionar profesor sustituto:</label>
-                              <select class="form-select" id="substituteTeacher">
+                              <!-- <select class="form-select" id="substituteTeacher">
                                 <option selected>Seleccione un profesor</option>
                                 <option value="1">Profesor 1</option>
                                 <option value="2">Profesor 2</option>
                                 <option value="3">Profesor 3</option>
-                              </select>
+                              </select> -->
+                              <select class="form-select" id="substituteTeacher" name="substituteTeacher">
+                                <option selected>Seleccione un profesor</option>
+                                <% profesores.forEach(function(profesor) { %>
+                                    <% const disponibilidad = profesor.disponibilidad.toLowerCase(); %>
+                                    <% if (disponibilidad === 'si' || disponibilidad === 'sí') { %>
+                                        <option value="<%= profesor._id %>"><%= profesor.nombre %> | <%= profesor.horarios %> | <%= profesor.especialidad %> | <%= profesor.cursos %></option>
+                                    <% } %>
+                                <% }); %>
+                            </select>
+                            
                             </div>
                             <div class="mb-3">
                               <label for="emailMessage" class="form-label">Mensaje para el correo:</label>
@@ -174,35 +188,15 @@
                       </div>
                     </div>
                   </div>
-                  
-                  <!-- Modal para denegar la justificación -->
-                  <div class="modal fade" id="denyModal" tabindex="-1" aria-labelledby="denyModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="denyModalLabel">Denegar Justificación</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <p>¿Está seguro de que desea denegar esta justificación?</p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                          <button type="button" class="btn btn-danger">Confirmar Denegación</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            </div>
-
-
-
-
-
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/sidebar.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
+    </script>
 </body>
 </html>

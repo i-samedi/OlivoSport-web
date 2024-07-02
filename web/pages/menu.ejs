@@ -25,33 +25,39 @@
     
             <ul class="list-unstyled px-2"> 
               <li class="">
-                  <a href="./menu.html" class="text-decoration-none px-3 py-2 d-block " >
+                  <a href="/menu" class="text-decoration-none px-3 py-2 d-block " >
                       <i class="fal fa-home" ></i> 
                       Menu
                   </a>
               </li>
 
-              <li class="">
-                  <a href="./justificaciones.html" class="text-decoration-none px-3 py-2 d-block">
+              <% if (tipo_de_usuario === 'Administrador') { %>
+                <li class="">
+                  <a href="/justificaciones" class="text-decoration-none px-3 py-2 d-block">
                       <i class="fal fa-list"></i>
                       Justificaciones
                   </a>
               </li>
+              <% } %>
 
+            <% if (tipo_de_usuario === 'Administrador') { %>
               <li class="">
-                  <a href="#" class="text-decoration-none px-3 py-2 d-block">
-                      <i class="fal fa-list"></i>
-                      Profesores
-                  </a>
-              </li>
-                  
+                <a href="/profes" class="text-decoration-none px-3 py-2 d-block">
+                    <i class="fal fa-list"></i>
+                    Profesores
+                </a>
+            </li>
+            <% } %>
+              
+          <% if (tipo_de_usuario === 'Administrador') { %>
+            <li class="">
+              <a href="/cursos" class="text-decoration-none px-3 py-2 d-block">
+                  <i class="fal fa-envelope-open-text">
+                  </i> Clases</a></li>
+          <% } %>
+              
               <li class="">
-                  <a href="#" class="text-decoration-none px-3 py-2 d-block">
-                      <i class="fal fa-envelope-open-text">
-                      </i> Clases</a></li>
-
-              <li class="">
-                  <a href="./user.html" class="text-decoration-none px-3 py-2 d-block">
+                  <a href="/user" class="text-decoration-none px-3 py-2 d-block">
                       <i class="fal fa-users"></i>
                       Perfil</a></li>
           </ul>
@@ -59,7 +65,7 @@
             <hr class="h-color mx-2">
     
             <ul class="list-unstyled px-2">
-                <li class=""><a href="../index.html" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bars"></i>
+                <li class=""><a href="/logout" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bars"></i>
                         Cerrar Sesión</a></li>
                 <!-- <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bell"></i>
                         Notifications</a></li> -->
@@ -103,13 +109,17 @@
                             background: radial-gradient(circle, rgba(89,89,89,1) 0%, rgba(64,64,64,1) 22%, rgba(45,45,45,1) 36%, rgba(41,41,41,1) 73%); 
                             padding: 8px; 
                             border-radius: 15px;"> -->
-                          <h1 class="mb-4 display-6 fw-bold">¡Bienvenido, [Nombre de Usuario]!</h1>
+                          <h1 class="mb-4 display-6 fw-bold">¡Bienvenido, <%= tipo_de_usuario %> <%= nombre %> <%= apellido %>!</h1>
+
+                          <% if (tipo_de_usuario === 'Profesor') { %>
                           <p class="lead fst-italic fw-light">Información del centro administrativo.</p>
+                          <% } %>
                         </div>
                       </div>
                     </div>
                   </div>
                 
+                <% if (tipo_de_usuario === 'Profesor') { %>
                   <div class="container mt-5">
                     <div class="row justify-content-center">
                       <div class="col-md-4 mb-3">
@@ -139,15 +149,15 @@
                           </div>
                         </div>
                       </div>
-                      <!-- Agregar más tarjetas según sea necesario -->
                     </div>
                   </div>
+                <% } %>
+
+
+                  
+
+
             </div>
-
-
-
-
-
 
         </div>
     </div>

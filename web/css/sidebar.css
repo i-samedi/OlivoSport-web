@@ -1,95 +1,42 @@
 body{
-    background: #f6f6f9;
-   }
-   
-   #side_nav{
-    background: #000;
-    min-width: 250px;
-    max-width: 250px;
-    transition: all 0.3s;
-   }
-   .content{
-      min-height: 100vh;
-      width: 100%;
-   }
-   hr.h-color{
-     background: #eee;
-   }
-   
-   .sidebar li.active{
-      background: #C6F332;
-      border-radius: 8px;
-   }
-   
-   .sidebar li.active a, .sidebar li.active a:hover {
-    color: #000;
-   }
-   .sidebar li a{
-    color: #fff;
-   }
-   
-   @media(max-width: 767px){
-    #side_nav{
-      margin-left: -250px;
-      position: absolute;
-      min-height: 100vh;
-      z-index: 1;
-   
-    }
-    #side_nav.active{
-      margin-left: 0;
-     }
-   }
-  
-
-   .container-lista {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 100px;
-
-  }
-  
-  .professor-list {
+  background: #f6f6f9;
+ }
+ 
+ #side_nav{
+  background: #000;
+  min-width: 250px;
+  max-width: 250px;
+  transition: all 0.3s;
+ }
+ .content{
+    min-height: 100vh;
     width: 100%;
-    padding: 20px;
-    background-color: #f2f2f2;
+ }
+ hr.h-color{
+   background: #eee;
+ }
+ 
+ .sidebar li.active{
+    background: #C6F332;
+    border-radius: 8px;
+ }
+ 
+ .sidebar li.active a, .sidebar li.active a:hover {
+  color: #000;
+ }
+ .sidebar li a{
+  color: #fff;
+ }
+ 
+ @media(max-width: 767px){
+  #side_nav{
+    margin-left: -250px;
+    position: absolute;
+    min-height: 100vh;
+    z-index: 1;
+ 
   }
-  
-  .column-headers {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 15px;
-    padding: 10px;
-    background-color: #000000;
-    color: #fff;
-    border-radius: 5px 5px 0 0;
-  }
-  
-  .professor-item {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 10px;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .name {
-    font-weight: bold;
-  }
-  
-  .availability.available {
-    color: green;
-  }
-  
-  .availability.pending {
-    color: orange;
-  }
-  
-  .availability.unavailable {
-    color: red;
-  }
-  .reemplazo-btn{
-
-  }
+  #side_nav.active{
+    margin-left: 0;
+   }
+ }

@@ -31,27 +31,41 @@
     
             <ul class="list-unstyled px-2"> 
                 <li class="">
-                    <a href="#" class="text-decoration-none px-3 py-2 d-block " >
+                    <a href="/menu" class="text-decoration-none px-3 py-2 d-block " >
                         <i class="fal fa-home" ></i> 
                         Menu
                     </a>
                 </li>
 
+                <% if (tipo_de_usuario === 'Administrador') { %>
+                    <li class="">
+                    <a href="/justificaciones" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="fal fa-list"></i>
+                            Justificaciones
+                        </a>
+                    </li>
+                <% } %>
+
+                <% if (tipo_de_usuario === 'Administrador') { %>
+                    <li class="">
+                        <a href="/profes" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="fal fa-list"></i>
+                            Profesores
+                        </a>
+                    </li>
+                <% } %>
+                
+                
+                <% if (tipo_de_usuario === 'Administrador') { %>
+                    <li class="">
+                        <a href="/cursos" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="fal fa-envelope-open-text">
+                            </i> Clases</a></li>
+                <% } %>
+                
 
                 <li class="">
-                    <a href="#" class="text-decoration-none px-3 py-2 d-block">
-                        <i class="fal fa-list"></i>
-                        Profesores
-                    </a>
-                </li>
-                    
-                <li class="">
-                    <a href="#" class="text-decoration-none px-3 py-2 d-block">
-                        <i class="fal fa-envelope-open-text">
-                        </i> Clases</a></li>
-
-                <li class="">
-                    <a href="#" class="text-decoration-none px-3 py-2 d-block">
+                    <a href="/user" class="text-decoration-none px-3 py-2 d-block">
                         <i class="fal fa-users"></i>
                         Perfil</a></li>
             </ul>
@@ -94,265 +108,157 @@
             <!-- ----------------------- END OF NAVBAR ----------------------- -->
 
             <div class="dashboard-content px-3 pt-4">
-                <h1>Cursos</h1>
-                <button id="showFormButton" class="btn btn-primary mb-3">Añadir Curso</button> <!--botón añadir curso que desplegará formulario-->
-
-                <!-- Formulario para añadir/editar curso -->
-                <div id="courseForm" class="mb-3" style="display: none;">
-                    <form id="formCurso">
-                        <div class="mb-3">
-                            <label for="curso" class="form-label">Curso</label>
-                            <input type="text" class="form-control" id="curso" name="curso">
-                        </div>
-                        <div class="mb-3">
-                            <label for="profesor" class="form-label">Profesor</label>
-                            <input type="text" class="form-control" id="profesor" name="profesor">
-                        </div>
-                        <div class="mb-3">
-                            <label for="horario" class="form-label">Horario</label>
-                            <input type="text" class="form-control" id="horario" name="horario">
-                        </div>
-                        <div class="mb-3">
-                            <label for="estado" class="form-label">Estado</label>
-                            <input type="text" class="form-control" id="estado" name="estado">
-                        </div>
-                        <div class="mb-3">
-                            <label for="especialidad" class="form-label">Especialidad</label>
-                            <input type="text" class="form-control" id="especialidad" name="especialidad">
-                        </div>
-                        <input type="hidden" id="cursoId">
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                    </form>
-                </div>
-
-                <table id="example" class="table table-striped" style="width:100%">
-                    <thead>
+                <div class="container mt-5">
+                    <h1>Cursos</h1>
+                    <table id="example" class="table table-striped">
+                        
+                        <thead>
+                            <button class="btn btn-primary" onclick="showAddModal()">Agregar Curso</button>
                             <tr>
                                 <th>Curso</th>
-                                <th>Professor/th>
                                 <th>Horario</th>
-                                <th>Estado</th>
-                                <th class="dispo" id="disponi"> Disponibilidad</th>
-                                <th>Editar </th>
-                                <th> Borrar </th>
+                                <th>Profesor</th>
+                                <th>Cancha</th>
+                                <th>Disponibilidad</th>
+                                <th>Editar</th>
+                                <th>Borrar</th>
                             </tr>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>22-01-2024</td>
-                            <td> Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>22-01-2024</td>
-                            <td> Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Brielle Williamson</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Hola Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Herrod Chandler</td>
-                            <td>Sales Assistant</td>
-                            <td>San Francisco</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Rhona Davidson</td>
-                            <td>Integration Specialist</td>
-                            <td>Tokyo</td>
-                            <td>22-01-2024</td>
-                            <td> Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Colleen Hurst</td>
-                            <td>Javascript Developer</td>
-                            <td>San Francisco</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Sonya Frost</td>
-                            <td>Software Engineer</td>
-                            <td>Edinburgh</td>
-                            <td>22-01-2024</td>
-                            <td>No disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Jena Gaines</td>
-                            <td>Office Manager</td>
-                            <td>London</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Quinn Flynn</td>
-                            <td>Support Lead</td>
-                            <td>Edinburgh</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Charde Marshall</td>
-                            <td>Regional Director</td>
-                            <td>San Francisco</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Haley Kennedy</td>
-                            <td>Senior Marketing Designer</td>
-                            <td>London</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Tatyana Fitzpatrick</td>
-                            <td>Regional Director</td>
-                            <td>London</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Michael Silva</td>
-                            <td>Marketing Designer</td>
-                            <td>London</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Paul Byrd</td>
-                            <td>Chief Financial Officer (CFO)</td>
-                            <td>New York</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Haley Kennedy</td>
-                            <td>Senior Marketing Designer</td>
-                            <td>London</td>
-                            <td>22-01-2024</td>
-                            <td>No disponible</td>
-                            <td> <button  class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Bradley Greer</td>
-                            <td>Software Engineer</td>
-                            <td>London</td>
-                            <td>22-01-2024</td>
-                            <td>No disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                        <tr>
-                            <td>Dai Rios</td>
-                            <td>Personnel Lead</td>
-                            <td>Edinburgh</td>
-                            <td>22-01-2024</td>
-                            <td>Disponible</td>
-                            <td> <button class="editar-btn">Editar</button></td>
-                            <td> <button class="borrar-btn">Borrar</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <% cursos.forEach(function(curso) { %>
+                            <tr>
+                                <td><%= curso.curso %></td>
+                                <td><%= curso.horario %></td>
+                                <td><%= curso.profesor %></td>
+                                <td><%= curso.cancha %></td>
+                                <td><%= curso.disponibilidad %></td>
+                                <td>
+                                    <button class="btn btn-warning" onclick="showEditModal('<%= curso._id %>', '<%= curso.curso %>', '<%= curso.horario %>', '<%= curso.profesor %>', '<%= curso.cancha %>', '<%= curso.disponibilidad %>')">Editar</button>
+                                </td>
+                                <td>
+                                    <form action="/cursos/delete/<%= curso._id %>" method="POST">
+                                        <button type="submit" class="btn btn-danger">Borrar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+
+         <!-- Modal de agregar -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Agregar Curso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addForm" action="/cursos" method="POST">
+                        <div class="mb-3">
+                            <label for="addCurso" class="form-label">Curso</label>
+                            <input type="text" class="form-control" id="addCurso" name="curso" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addHorario" class="form-label">Horario</label>
+                            <input type="text" class="form-control" id="addHorario" name="horario" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProfesor" class="form-label">Profesor</label>
+                            <input type="text" class="form-control" id="addProfesor" name="profesor" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addCancha" class="form-label">Cancha</label>
+                            <input type="text" class="form-control" id="addCancha" name="cancha" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addDisponibilidad" class="form-label">Disponibilidad</label>
+                            <input type="text" class="form-control" id="addDisponibilidad" name="disponibilidad" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar Curso</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/sidebar.js"></script>
+    <!-- boton para desplegar la ventana modal -->
+    
+
+
+<!-- Script para mostrar el modal y llenar los datos del formulario de añadir -->
+    <script>
+        function showAddModal() {
+            $('#addForm').attr('action', '/cursos'); // Ajusta la acción del formulario
+            $('#addModal').modal('show');
+        }
+    </script>
+
+
+    <!-- Modal de edición -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Editar Curso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm" method="POST">
+                        <input type="hidden" id="editId" name="id">
+                        <div class="mb-3">
+                            <label for="editCurso" class="form-label">Curso</label>
+                            <input type="text" class="form-control" id="editCurso" name="curso" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editHorario" class="form-label">Horario</label>
+                            <input type="text" class="form-control" id="editHorario" name="horario" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editProfesor" class="form-label">Profesor</label>
+                            <input type="text" class="form-control" id="editProfesor" name="profesor" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCancha" class="form-label">Cancha</label>
+                            <input type="text" class="form-control" id="editCancha" name="cancha" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDisponibilidad" class="form-label">Disponibilidad</label>
+                            <input type="text" class="form-control" id="editDisponibilidad" name="disponibilidad" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para mostrar el modal y llenar los datos del formulario -->
+    <script>
+        function showEditModal(id, curso, horario, profesor, cancha, disponibilidad) {
+            $('#editId').val(id);
+            $('#editCurso').val(curso);
+            $('#editHorario').val(horario);
+            $('#editProfesor').val(profesor);
+            $('#editCancha').val(cancha);
+            $('#editDisponibilidad').val(disponibilidad);
+            $('#editForm').attr('action', '/cursos/edit/' + id); // Ajusta la acción del formulario
+            $('#editModal').modal('show');
+        }
+    </script>
+                
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+                <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+                <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+                <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+                <script>
+                $(document).ready(function() {
+                    $('#example').DataTable();
+                });
+                </script>
 </body>
 </html>

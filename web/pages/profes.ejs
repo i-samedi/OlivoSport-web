@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="icon" type="image/x-icon" href="../image/mini.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"/>
+    <link rel="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css"/>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script defer src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
+    <script defer src="../js/cursos.js"></script>
+    <script>
+window.onload = function() {
+    // Delegamos el evento al contenedor principal
+    document.querySelector('#example').addEventListener('click', function(event) {
+        // Verificamos si el elemento clicado es un botón de reemplazo
+        if (event.target.classList.contains('reemplazo-btn')) {
+            var button = event.target;
+            var nombreProfesor = button.parentElement.parentElement.querySelector('td:first-child').textContent;
+            var confirmacion = confirm("¿Deseas seleccionar un reemplazo para " + nombreProfesor + "?");
+
+            if (confirmacion) {
+                // Mostrar la lista de profesores disponibles
+                document.getElementById('profesores-disponibles').style.display = 'block';
+
+                // Establecer el evento de selección del botón de selección
+                document.getElementById('seleccionar-btn').onclick = function() {
+                    // Obtener el valor seleccionado de la lista de profesores
+                    var nuevoProfesorNombre = document.getElementById('lista-profesores').options[document.getElementById('lista-profesores').selectedIndex].text;
+
+                    // Crear el elemento para el nombre del profesor de reemplazo
+                    var profesorReemplazo = document.createElement('div');
+                    profesorReemplazo.classList.add('reemplazante');
+                    profesorReemplazo.textContent = nuevoProfesorNombre;
+
+                    // Obtener la fila correspondiente al botón seleccionado
+                    var fila = button.parentElement.parentElement;
+
+                    // Actualizar la celda de reemplazante en la fila correspondiente
+                    var celdaReemplazo = fila.querySelector('.reemplazante');
+                    celdaReemplazo.innerHTML = ''; // Limpiamos cualquier contenido previo
+                    celdaReemplazo.appendChild(profesorReemplazo);
+
+                    // Ocultar la lista de profesores disponibles
+                    document.getElementById('profesores-disponibles').style.display = 'none';
+                };
+            }
+        }
+    });
+};
+
+    </script>
+     <style>
+        #profesorForm {
+            display: none;
+            transition: all 0.3s ease-in-out;
+        }
+        #profesorForm.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <body>
+
+        <div class="main-container d-flex">
+            <div class="sidebar" id="side_nav">
+                <div class="header-box px-2 pt-3 pb-4 d-flex justify-content-between ">
+                    <a href="https://olivossport.cl/"><img src="../image/logo.png" alt="logo"></a>
+                </div>
+        
+                <ul class="list-unstyled px-2"> 
+                    <li class="">
+                        <a href="/menu" class="text-decoration-none px-3 py-2 d-block " >
+                            <i class="fal fa-home" ></i> 
+                            Menu
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="/justificaciones" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="fal fa-list"></i>
+                            Justificaciones
+                        </a>
+                    </li>
+    
+    
+                    <li class="">
+                        <a href="/profes" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="fal fa-list"></i>
+                            Profesores
+                        </a>
+                    </li>
+                        
+                    <li class="">
+                        <a href="/cursos" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="fal fa-envelope-open-text">
+                            </i> Clases</a></li>
+    
+                    <li class="">
+                        <a href="/user" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="fal fa-users"></i>
+                            Perfil</a></li>
+                </ul>
+    
+                <hr class="h-color mx-2">
+        
+                <ul class="list-unstyled px-2">
+                    <li class=""><a href="../index.html" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bars"></i>
+                            Cerrar Sesión</a></li>
+                    <!-- <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bell"></i>
+                            Notifications</a></li> -->
+        
+                </ul>
+            </div>
+            <!-- ----------------------- END OF SIDEBAR ----------------------- -->
+            <div class="content">
+    
+                <nav class="navbar navbar-expand-md navbar-light bg-light">
+                    <div class="container-fluid">
+                        <div class="d-flex justify-content-between d-md-none d-block">
+                            <button class="btn px-1 py-0 open-btn me-md-2 " type="button">
+                                <i class="fal fa-stream">
+                                    <span class="material-symbols-outlined">menu</span>
+                                </i>
+                            </button>
+                        </div>
+                        <button class="navbar-toggler p-0 border-0" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fal fa-bars"></i>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                            <ul class="navbar-nav mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a href="#"><img src="../image/profile.jpg" style="height: 40px; width: 40px;"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+        <!-- ----------------------- END OF SIDEBAR ----------------------- -->
+        <div class="content">
+
+            <nav class="navbar navbar-expand-md navbar-light bg-light">
+                <div class="container-fluid">
+                    <div class="d-flex justify-content-between d-md-none d-block">
+                        <button class="btn px-1 py-0 open-btn me-md-2 " type="button">
+                            <i class="fal fa-stream">
+                                <span class="material-symbols-outlined">menu</span>
+                            </i>
+                        </button>
+                    </div>
+                    <button class="navbar-toggler p-0 border-0" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fal fa-bars"></i>
+                    </button>
+
+                </div>
+            </nav>
+            <!-- ----------------------- END OF NAVBAR ----------------------- -->
+
+            <div class="dashboard-content px-3 pt-4">
+<div class="container mt-5">
+    <h1>Profesores</h1>
+    <table id="example" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Especialidad</th>
+                <th>Cursos</th>
+                <th>Horarios</th>
+                <th>Disponibilidad</th>
+                <th>Editar</th>
+                <th>Borrar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% profesores.forEach(function(profesor) { %>
+            <tr>
+                <td><%= profesor.nombre %></td>
+                <td><%= profesor.especialidad %></td>
+                <td><%= profesor.cursos %></td>
+                <td><%= profesor.horarios %></td>
+                <td><%= profesor.disponibilidad %></td>
+                <td>
+                    <button class="btn btn-warning" onclick="editarProfesor('<%= profesor._id %>', '<%= profesor.nombre %>', '<%= profesor.especialidad %>', '<%= profesor.cursos %>', '<%= profesor.horarios %>', '<%= profesor.disponibilidad %>')">Editar</button>
+                </td>
+                <td>
+                    <form action="/profes/delete/<%= profesor._id %>" method="POST">
+                        <button type="submit" class="btn btn-danger">Borrar</button>
+                    </form>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+        <!-- boton para desplegar la ventana modal de añadir profesor -->
+        <button class="btn btn-primary" onclick="mostrarModalAgregarProfesor()">Agregar Profesor</button>
+
+    </table>
+<!-- Modal para agregar profesor -->
+    <div class="modal fade" id="addProfesorModal" tabindex="-1" aria-labelledby="addProfesorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProfesorModalLabel">Agregar Profesor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProfesorForm" action="/profes" method="POST">
+                        <div class="mb-3">
+                            <label for="addProfesorNombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="addProfesorNombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProfesorMateria" class="form-label">Especialidad</label>
+                            <input type="text" class="form-control" id="addProfesorMateria" name="especialidad" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProfesorDeporte" class="form-label">Cursos</label>
+                            <input type="text" class="form-control" id="addProfesorDeporte" name="cursos" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProfesorHorario" class="form-label">Horario</label>
+                            <input type="text" class="form-control" id="addProfesorHorario" name="horarios" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProfesorDisponible" class="form-label">Disponible</label>
+                            <input type="text" class="form-control" id="addProfesorDisponible" name="disponibilidad" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar Profesor</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para mostrar el modal y añadir profesor -->
+    <script>
+        function mostrarModalAgregarProfesor() {
+            $('#addProfesorModal').modal('show');
+        }
+    </script>
+
+
+<!-- Modal de edición -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Profesor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" method="POST">
+                    <input type="hidden" id="editId" name="id">
+                    <div class="mb-3">
+                        <label for="editNombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="editNombre" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editEspecialidad" class="form-label">Especialidad</label>
+                        <input type="text" class="form-control" id="editEspecialidad" name="especialidad" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCursos" class="form-label">Cursos</label>
+                        <input type="text" class="form-control" id="editCursos" name="cursos" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editHorarios" class="form-label">Horarios</label>
+                        <input type="text" class="form-control" id="editHorarios" name="horarios" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDisponibilidad" class="form-label">Disponibilidad</label>
+                        <input type="text" class="form-control" id="editDisponibilidad" name="disponibilidad" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script para mostrar el modal y llenar los datos del formulario -->
+<script>
+    function editarProfesor(id, nombre, especialidad, cursos, horarios, disponibilidad) {
+        $('#editId').val(id);
+        $('#editNombre').val(nombre);
+        $('#editEspecialidad').val(especialidad);
+        $('#editCursos').val(cursos);
+        $('#editHorarios').val(horarios);
+        $('#editDisponibilidad').val(disponibilidad);
+        $('#editForm').attr('action', '/profes/edit/' + id); // Ajusta la acción del formulario
+        $('#editModal').modal('show');
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+</body>
+</html>
