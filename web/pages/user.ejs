@@ -106,6 +106,9 @@
                 <img src="../image/profile.jpg" class="img-fluid rounded float-start" style="height: 250px; width: 250px; margin: 20px ;">
                 <div class=" justify-content-between">
                     <h2 class="mt-3 fw-bold"><%= nombre %> <%= apellido %></h2>
+                    <% if (tipo_de_usuario == 'Administrador') { %>
+                      <h5 class="mt-2 fst-italic fw-light" style="color: #969696;"> <%= tipo_de_usuario %> </h5>
+                    <% } %>
                     <% if (tipo_de_usuario !== 'Administrador') { %>
                       <h5 class="mt-2 fst-italic fw-light" style="color: #969696;"> <%= especialidad %> </h5>
                     <% } %>
