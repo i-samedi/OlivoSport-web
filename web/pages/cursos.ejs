@@ -60,7 +60,7 @@
                     <li class="">
                         <a href="/cursos" class="text-decoration-none px-3 py-2 d-block">
                             <i class="fal fa-envelope-open-text">
-                            </i> Clases</a></li>
+                            </i> Cursos</a></li>
                 <% } %>
                 
 
@@ -109,7 +109,7 @@
 
             <div class="dashboard-content px-3 pt-4">
                 <div class="container mt-5">
-                    <h1>Cursos</h1>
+                    <h1>Cursos del Centro Deportivo</h1>
                     <table id="example" class="table table-striped">
                         
                         <thead>
@@ -118,7 +118,7 @@
                                 <th>Curso</th>
                                 <th>Horario</th>
                                 <th>Profesor</th>
-                                <th>Cancha</th>
+                                <th>Sector</th>  <!-- Add this line -->
                                 <th>Disponibilidad</th>
                                 <th>Editar</th>
                                 <th>Borrar</th>
@@ -130,10 +130,10 @@
                                 <td><%= curso.curso %></td>
                                 <td><%= curso.horario %></td>
                                 <td><%= curso.profesor %></td>
-                                <td><%= curso.cancha %></td>
+                                <td><%= curso.sector %></td>  <!-- Add this line -->
                                 <td><%= curso.disponibilidad %></td>
                                 <td>
-                                    <button class="btn btn-warning" onclick="showEditModal('<%= curso._id %>', '<%= curso.curso %>', '<%= curso.horario %>', '<%= curso.profesor %>', '<%= curso.cancha %>', '<%= curso.disponibilidad %>')">Editar</button>
+                                    <button class="btn btn-warning" onclick="showEditModal('<%= curso._id %>', '<%= curso.curso %>', '<%= curso.horario %>', '<%= curso.profesor %>', '<%= curso.sector %>', '<%= curso.disponibilidad %>')">Editar</button>
                                 </td>
                                 <td>
                                     <form action="/cursos/delete/<%= curso._id %>" method="POST">
@@ -159,26 +159,72 @@
                 </div>
                 <div class="modal-body">
                     <form id="addForm" action="/cursos" method="POST">
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="addCurso" class="form-label">Curso</label>
                             <input type="text" class="form-control" id="addCurso" name="curso" required>
+                        </div> -->
+                        <div class="mb-3">
+                            <label for="addCurso" class="form-label">Curso</label>
+                            <select class="form-control" id="addCurso" name="curso" required>
+                                <option value="Futbol">Fútbol</option>
+                                <option value="Tenis">Tenis</option>
+                                <option value="Padel">Pádel</option>
+                                <option value="Basquetbol">Básquetbol</option>
+                                <option value="Natacion">Natación</option>
+                                <option value="Gimnasio">Gimnasio</option>
+                            </select>
                         </div>
+                        
                         <div class="mb-3">
                             <label for="addHorario" class="form-label">Horario</label>
-                            <input type="text" class="form-control" id="addHorario" name="horario" required>
+                            <select class="form-control" id="addHorario" name="horario" required>
+                                <option value="08:00 - 10:00">08:00 - 10:00</option>
+                                <option value="10:00 - 12:00">10:00 - 12:00</option>
+                                <option value="12:00 - 14:00">12:00 - 14:00</option>
+                                <option value="14:00 - 16:00">14:00 - 16:00</option>
+                                <option value="16:00 - 18:00">16:00 - 18:00</option>
+                                <option value="Lunes a Viernes">Lunes a Viernes</option>
+                            </select>
                         </div>
+                        
+                        <!-- <div class="mb-3">
+                            <label for="addHorario" class="form-label">Horario</label>
+                            <input type="text" class="form-control" id="addHorario" name="horario" required>
+                        </div> -->
+                        
                         <div class="mb-3">
                             <label for="addProfesor" class="form-label">Profesor</label>
                             <input type="text" class="form-control" id="addProfesor" name="profesor" required>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="addCancha" class="form-label">Cancha</label>
                             <input type="text" class="form-control" id="addCancha" name="cancha" required>
-                        </div>
+                        </div> -->
                         <div class="mb-3">
+                            <label for="addSector" class="form-label">Sector</label>
+                            <select class="form-control" id="addSector" name="sector" required>
+                                <option value="Cancha A">Cancha A</option>
+                                <option value="Cancha B">Cancha B</option>
+                                <option value="Cancha C">Cancha C</option>
+                                <option value="Cancha Padel A">Cancha Pádel A</option>
+                                <option value="Cancha Padel B">Cancha Pádel B</option>
+                                <option value="Cancha Tenis A">Cancha Tenis A</option>
+                                <option value="Cancha Basquetbol">Cancha Básquetbol</option>
+                                <option value="Piscina">Piscina</option>
+                                <option value="Gimnasio">Gimnasio</option>
+                            </select>
+                        </div> 
+                        <!-- <div class="mb-3">
                             <label for="addDisponibilidad" class="form-label">Disponibilidad</label>
                             <input type="text" class="form-control" id="addDisponibilidad" name="disponibilidad" required>
-                        </div>
+                        </div> -->
+                        <div class="mb-3">
+                            <label for="addDisponibilidad" class="form-label">Disponible</label>
+                            <select class="form-control" id="addDisponibilidad" name="disponibilidad" required>
+                                <option value="Si">Sí</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div> 
                         <button type="submit" class="btn btn-primary">Agregar Curso</button>
                     </form>
                 </div>
@@ -210,26 +256,68 @@
                 <div class="modal-body">
                     <form id="editForm" method="POST">
                         <input type="hidden" id="editId" name="id">
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="editCurso" class="form-label">Curso</label>
                             <input type="text" class="form-control" id="editCurso" name="curso" required>
+                        </div> -->
+                        <<div class="mb-3">
+                            <label for="editCurso" class="form-label">Curso</label>
+                            <select class="form-control" id="editCurso" name="curso" required>
+                                <option value="Futbol">Fútbol</option>
+                                <option value="Tenis">Tenis</option>
+                                <option value="Padel">Pádel</option>
+                                <option value="Basquetbol">Básquetbol</option>
+                                <option value="Natacion">Natación</option>
+                                <option value="Gimnasio">Gimnasio</option>
+                            </select>
                         </div>
+                        
                         <div class="mb-3">
                             <label for="editHorario" class="form-label">Horario</label>
-                            <input type="text" class="form-control" id="editHorario" name="horario" required>
+                            <select class="form-control" id="editHorario" name="horario" required>
+                                <option value="08:00 - 10:00">08:00 - 10:00</option>
+                                <option value="10:00 - 12:00">10:00 - 12:00</option>
+                                <option value="12:00 - 14:00">12:00 - 14:00</option>
+                                <option value="14:00 - 16:00">14:00 - 16:00</option>
+                                <option value="16:00 - 18:00">16:00 - 18:00</option>
+                                <option value="Lunes a Viernes">Lunes a Viernes</option>
+                            </select>
                         </div>
+                        
+                        
                         <div class="mb-3">
                             <label for="editProfesor" class="form-label">Profesor</label>
                             <input type="text" class="form-control" id="editProfesor" name="profesor" required>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="editCancha" class="form-label">Cancha</label>
                             <input type="text" class="form-control" id="editCancha" name="cancha" required>
-                        </div>
+                        </div> -->
                         <div class="mb-3">
+                            <label for="editSector" class="form-label">Sector</label>
+                            <select class="form-control" id="editSector" name="sector" required>
+                                <option value="Cancha A">Cancha A</option>
+                                <option value="Cancha B">Cancha B</option>
+                                <option value="Cancha C">Cancha C</option>
+                                <option value="Cancha Padel A">Cancha Pádel A</option>
+                                <option value="Cancha Padel B">Cancha Pádel B</option>
+                                <option value="Cancha Tenis A">Cancha Tenis A</option>
+                                <option value="Cancha Basquetbol">Cancha Básquetbol</option>
+                                <option value="Piscina">Piscina</option>
+                                <option value="Gimnasio">Gimnasio</option>
+                            </select>
+                        </div>
+                        <!-- <div class="mb-3">
                             <label for="editDisponibilidad" class="form-label">Disponibilidad</label>
                             <input type="text" class="form-control" id="editDisponibilidad" name="disponibilidad" required>
-                        </div>
+                        </div> -->
+                        <div class="mb-3">
+                            <label for="editDisponibilidad" class="form-label">Disponible</label>
+                            <select class="form-control" id="editDisponibilidad" name="disponibilidad" required>
+                                <option value="Si">Sí</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div> 
                         <button type="submit" class="btn btn-primary">Guardar cambios</button>
                     </form>
                 </div>
@@ -240,14 +328,14 @@
     <!-- Script para mostrar el modal y llenar los datos del formulario -->
     <script src="/js/sidebar.js"></script>
     <script>
-        function showEditModal(id, curso, horario, profesor, cancha, disponibilidad) {
+        function showEditModal(id, curso, horario, profesor, sector, disponibilidad) {
             $('#editId').val(id);
             $('#editCurso').val(curso);
             $('#editHorario').val(horario);
             $('#editProfesor').val(profesor);
-            $('#editCancha').val(cancha);
+            $('#editSector').val(sector);
             $('#editDisponibilidad').val(disponibilidad);
-            $('#editForm').attr('action', '/cursos/edit/' + id); // Ajusta la acción del formulario
+            $('#editForm').attr('action', '/cursos/edit/' + id);
             $('#editModal').modal('show');
         }
     </script>
