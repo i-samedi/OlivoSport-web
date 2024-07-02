@@ -3,6 +3,8 @@ import multer from 'multer';
 import Profesor from './schemas/profesorSchema.js';
 import Cursos from './schemas/cursosSchema.js';
 import Justificacion from './schemas/justificacionSchema.js';
+import Login from './schemas/loginSchema.js';
+import bcrypt from "bcrypt";
 
 const router = express.Router();
 
@@ -78,9 +80,34 @@ router.get('/profes',checkAuth, async (req, res) => {
 });
 
 router.post('/profes', async (req, res) => {
-    const nuevoProfesor = new Profesor(req.body);
-    await nuevoProfesor.save();
-    res.redirect('/profes');
+    try {
+        // Crear un nuevo usuario
+        const hashedPassword = await bcrypt.hash(req.body.password, 10); // Hashear la contraseña
+        const newUser = new Login({
+            rut: req.body.rut,
+            password: hashedPassword,
+            nombre: req.body.nombre, // Cambiar a nombre de usuario si es necesario
+            apellido: req.body.apellido,
+            tipo_de_usuario: 'profesor' // Asegúrate de que el tipo de usuario sea correcto
+        });
+        const savedUser = await newUser.save();
+
+        // Crear un nuevo profesor y asociarlo al usuario
+        const newProfesor = new Profesor({
+            nombre: req.body.nombre,
+            especialidad: req.body.especialidad,
+            cursos: req.body.cursos,
+            horarios: req.body.horarios,
+            disponibilidad: req.body.disponibilidad,
+            usuario: savedUser._id // Asociar el profesor al usuario
+        });
+        await newProfesor.save();
+
+        res.redirect('/profes');
+    } catch (error) {
+        console.error('Error al crear el profesor:', error);
+        res.status(500).send('Error al crear el profesor');
+    }
 });
 
 router.post('/profes/edit/:id', async (req, res) => {
@@ -94,8 +121,24 @@ router.post('/profes/edit/:id', async (req, res) => {
 });
 
 router.post('/profes/delete/:id', async (req, res) => {
-    await Profesor.findByIdAndDelete(req.params.id);
-    res.redirect('/profes');
+    try {
+        // Buscar el profesor por ID
+        const profesor = await Profesor.findById(req.params.id);
+        if (!profesor) {
+            return res.status(404).send('Profesor no encontrado');
+        }
+
+        // Eliminar el usuario asociado al profesor
+        await Login.findByIdAndDelete(profesor.usuario);
+
+        // Eliminar el profesor
+        await Profesor.findByIdAndDelete(req.params.id);
+
+        res.redirect('/profes');
+    } catch (error) {
+        console.error('Error al eliminar el profesor:', error);
+        res.status(500).send('Error al eliminar el profesor');
+    }
 });
 
 router.get('/cursos', checkAuth, async (req, res) => {

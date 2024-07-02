@@ -119,7 +119,7 @@ window.onload = function() {
                 <hr class="h-color mx-2">
         
                 <ul class="list-unstyled px-2">
-                    <li class=""><a href="../index.html" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bars"></i>
+                    <li class=""><a href="/logout" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bars"></i>
                             Cerrar Sesión</a></li>
                     <!-- <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bell"></i>
                             Notifications</a></li> -->
@@ -212,8 +212,77 @@ window.onload = function() {
         <button class="btn btn-primary" onclick="mostrarModalAgregarProfesor()">Agregar Profesor</button>
 
     </table>
-<!-- Modal para agregar profesor -->
+
     <div class="modal fade" id="addProfesorModal" tabindex="-1" aria-labelledby="addProfesorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProfesorModalLabel">Agregar Profesor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProfesorForm" action="/profes" method="POST">
+                        <!-- Campos del profesor -->
+                        <div class="mb-3">
+                            <label for="addProfesorNombre" class="form-label">Nombre del Profesor</label>
+                            <input type="text" class="form-control" id="addProfesorNombre" name="nombre" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="addProfesorApellido" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="addProfesorApellido" name="apellido" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="addProfesorMateria" class="form-label">Especialidad</label>
+                            <input type="text" class="form-control" id="addProfesorMateria" name="especialidad" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProfesorDeporte" class="form-label">Cursos</label>
+                                <select class="form-control" id="addProfesorDeporte" name="cursos" required>
+                                    <option value="Futbol">Futbol</option>
+                                    <option value="Tenis">Tenis</option>
+                                    <option value="Padel">Padel</option>
+                                    <option value="Basquetbol">Basquetbol</option>
+                                    <option value="Natacion">Natacion</option>
+                                    <option value="Gimnasio">Gimnasio</option>
+                                </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProfesorHorario" class="form-label">Horario</label>
+                            <select class="form-control" id="addProfesorHorario" name="horarios" required>
+                                <option value="08:00 - 10:00">08:00 - 10:00</option>
+                                <option value="10:00 - 12:00">10:00 - 12:00</option>
+                                <option value="12:00 - 14:00">12:00 - 14:00</option>
+                                <option value="14:00 - 16:00">14:00 - 16:00</option>
+                                <option value="16:00 - 18:00">16:00 - 18:00</option>
+                                <option value="Lunes a Viernes">Lunes a Viernes</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProfesorDisponible" class="form-label">Disponibilidad</label>
+                            <select class="form-control" id="addProfesorDisponible" name="disponibilidad" required>
+                                <option value="Si">Sí</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <!-- Campos del usuario -->
+                        <div class="mb-3">
+                            <label for="addProfesorRut" class="form-label">RUT</label>
+                            <input type="text" class="form-control" id="addProfesorRut" name="rut" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProfesorPassword" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="addProfesorPassword" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar Profesor</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Modal para agregar profesor -->
+   <!--  <div class="modal fade" id="addProfesorModal" tabindex="-1" aria-labelledby="addProfesorModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -230,10 +299,7 @@ window.onload = function() {
                             <label for="addProfesorMateria" class="form-label">Especialidad</label>
                             <input type="text" class="form-control" id="addProfesorMateria" name="especialidad" required>
                         </div>
-                        <!-- <div class="mb-3">
-                            <label for="addProfesorDeporte" class="form-label">Cursos</label>
-                            <input type="text" class="form-control" id="addProfesorDeporte" name="cursos" required>
-                        </div> -->
+
                         <div class="mb-3">
                             <label for="addProfesorDeporte" class="form-label">Cursos</label>
                             <select class="form-control" id="addProfesorDeporte" name="cursos" required>
@@ -246,10 +312,7 @@ window.onload = function() {
 
                             </select>
                         </div>                        
-                        <!-- <div class="mb-3">
-                            <label for="addProfesorHorario" class="form-label">Horario</label>
-                            <input type="text" class="form-control" id="addProfesorHorario" name="horarios" required>
-                        </div> -->
+  
                         <div class="mb-3">
                             <label for="addProfesorHorario" class="form-label">Horario</label>
                             <select class="form-control" id="addProfesorHorario" name="horarios" required>
@@ -261,10 +324,7 @@ window.onload = function() {
                                 <option value="Lunes a Viernes">Lunes a Viernes</option>
                             </select>
                         </div>
-                        <!-- <div class="mb-3">
-                            <label for="addProfesorDisponible" class="form-label">Disponible</label>
-                            <input type="text" class="form-control" id="addProfesorDisponible" name="disponibilidad" required>
-                        </div> -->
+
                         <div class="mb-3">
                             <label for="addProfesorDisponible" class="form-label">Disponible</label>
                             <select class="form-control" id="addProfesorDisponible" name="disponibilidad" required>
@@ -278,7 +338,7 @@ window.onload = function() {
             </div>
         </div>
     </div>
-
+ -->
     <!-- Script para mostrar el modal y añadir profesor -->
     <script>
         function mostrarModalAgregarProfesor() {
