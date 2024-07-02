@@ -1,5 +1,6 @@
 import express from 'express';
 import Profesor from './schemas/profesorSchema.js';
+import Cursos from './schemas/cursosSchema.js';
 
 const router = express.Router();
 
@@ -92,21 +93,49 @@ router.post('/profes/delete/:id', async (req, res) => {
     res.redirect('/profes');
 });
 
-/* router.get('/profesores', async (req, res) => {
+router.get('/cursos', checkAuth, async (req, res) => {
     try {
-        // Obtener todos los profesores de la colección
-        const profesores = await collection.find().toArray();
-
-        // Renderizar la vista con los datos de los profesores
-        res.render('profesores', { profesores });
+        const cursos = await Cursos.find({});
+        res.render('cursos', { cursos, tipo_de_usuario: 'Administrador' });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Hubo un error al obtener los profesores' });
+        console.error('Error al obtener los cursos:', error);
+        res.status(500).send('Error al obtener los cursos');
     }
-}); */
-
-router.get("/cursos", checkAuth, (req, res) => {
-    res.render("cursos", {tipo_de_usuario: 'Administrador'});
 });
+
+// Ruta para agregar un nuevo curso
+router.post('/cursos', async (req, res) => {
+    try {
+        const nuevoCurso = new Cursos(req.body);
+        await nuevoCurso.save();
+        res.redirect('/cursos');
+    } catch (error) {
+        console.error('Error al agregar el curso:', error);
+        res.status(500).send('Error al agregar el curso');
+    }
+});
+
+// Ruta para editar un curso
+router.post('/cursos/edit/:id', async (req, res) => {
+    try {
+        await Cursos.findByIdAndUpdate(req.params.id, req.body);
+        res.redirect('/cursos');
+    } catch (error) {
+        console.error('Error al actualizar el curso:', error);
+        res.status(500).send('Error al actualizar el curso');
+    }
+});
+
+// Ruta para eliminar un curso
+router.post('/cursos/delete/:id', async (req, res) => {
+    try {
+        await Cursos.findByIdAndDelete(req.params.id);
+        res.redirect('/cursos');
+    } catch (error) {
+        console.error('Error al eliminar el curso:', error);
+        res.status(500).send('Error al eliminar el curso');
+    }
+});
+
 
 export default router;

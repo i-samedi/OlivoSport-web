@@ -31,12 +31,14 @@
                     </a>
                 </li>
 
-                <li class="">
+                <% if (tipo_de_usuario === 'Administrador') { %>
+                  <li class="">
                     <a href="/justificaciones" class="text-decoration-none px-3 py-2 d-block">
                         <i class="fal fa-list"></i>
                         Justificaciones
                     </a>
                 </li>
+                <% } %>
 
                 <% if (tipo_de_usuario === 'Administrador') { %>
                     <li class="">
@@ -49,7 +51,7 @@
                     
                 <% if (tipo_de_usuario === 'Administrador') { %>
                     <li class="">
-                        <a href="#" class="text-decoration-none px-3 py-2 d-block">
+                        <a href="/cursos" class="text-decoration-none px-3 py-2 d-block">
                             <i class="fal fa-envelope-open-text">
                             </i> Clases
                         </a>
