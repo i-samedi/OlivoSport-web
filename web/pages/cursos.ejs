@@ -151,74 +151,6 @@
         </div>
 
          <!-- Modal de agregar -->
-<<<<<<< HEAD
-         <div class="modal fade" id="addCourseModal" tabindex="-1" aria-labelledby="addCourseModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addCourseModalLabel">Agregar Curso</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="addCourseForm" method="POST" action="/cursos">
-                            <div class="mb-3">
-                                <label for="courseName" class="form-label">Nombre del Curso</label>
-                                <select class="form-control" id="addCurso" name="curso" required>
-                                    <option value="Futbol">Fútbol</option>
-                                    <option value="Tenis">Tenis</option>
-                                    <option value="Padel">Pádel</option>
-                                    <option value="Basquetbol">Básquetbol</option>
-                                    <option value="Natacion">Natación</option>
-                                    <option value="Gimnasio">Gimnasio</option>
-                                </select>
-    
-                            </div>
-                            <div class="mb-3">
-                                <label for="courseSchedule" class="form-label">Horario</label>
-                                <select class="form-control" id="addHorario" name="horario" required>
-                                    <option value="08:00 - 10:00">08:00 - 10:00</option>
-                                    <option value="10:00 - 12:00">10:00 - 12:00</option>
-                                    <option value="12:00 - 14:00">12:00 - 14:00</option>
-                                    <option value="14:00 - 16:00">14:00 - 16:00</option>
-                                    <option value="16:00 - 18:00">16:00 - 18:00</option>
-                                    <option value="Lunes a Viernes">Lunes a Viernes</option>
-                                </select>
-    
-                            </div>
-                            <div class="mb-3">
-                                <label for="courseProfessor" class="form-label">Profesor</label>
-                                <select class="form-control" id="courseProfessor" name="profesor" required>
-                                    <% profesores.forEach(profesor => { %>
-                                        <option value="<%= profesor._id %>"><%= profesor.nombre %></option>
-                                    <% }) %>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="courseSector" class="form-label">Sector</label>
-                                <select class="form-control" id="addSector" name="sector" required>
-                                    <option value="Cancha A">Cancha A</option>
-                                    <option value="Cancha B">Cancha B</option>
-                                    <option value="Cancha C">Cancha C</option>
-                                    <option value="Cancha Padel A">Cancha Pádel A</option>
-                                    <option value="Cancha Padel B">Cancha Pádel B</option>
-                                    <option value="Cancha Tenis A">Cancha Tenis A</option>
-                                    <option value="Cancha Basquetbol">Cancha Básquetbol</option>
-                                    <option value="Piscina">Piscina</option>
-                                    <option value="Gimnasio">Gimnasio</option>
-                                </select>
-    
-                            </div>
-                            <div class="mb-3">
-                                <label for="courseAvailability" class="form-label">Disponibilidad</label>
-                                <select class="form-control" id="courseAvailability" name="disponibilidad" required>
-                                    <option value="Si">Sí</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Agregar Curso</button>
-                        </form>
-                    </div>
-=======
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -296,7 +228,6 @@
                         </div> 
                         <button type="submit" class="btn btn-primary">Agregar Curso</button>
                     </form>
->>>>>>> 4fccab8bca6e4b197b4ffde28b8c3b3bcf0077c5
                 </div>
             </div>
         </div>
