@@ -73,7 +73,7 @@
             <hr class="h-color mx-2">
     
             <ul class="list-unstyled px-2">
-                <li class=""><a href="../index.html" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bars"></i>
+                <li class=""><a href="/logout" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bars"></i>
                         Cerrar Sesión</a></li>
                 <!-- <li class=""><a href="#" class="text-decoration-none px-3 py-2 d-block"><i class="fal fa-bell"></i>
                         Notifications</a></li> -->
@@ -151,6 +151,7 @@
         </div>
 
          <!-- Modal de agregar -->
+<<<<<<< HEAD
          <div class="modal fade" id="addCourseModal" tabindex="-1" aria-labelledby="addCourseModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -217,6 +218,105 @@
                             <button type="submit" class="btn btn-primary">Agregar Curso</button>
                         </form>
                     </div>
+=======
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Agregar Curso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addForm" action="/cursos" method="POST">
+                        <!-- <div class="mb-3">
+                            <label for="addCurso" class="form-label">Curso</label>
+                            <input type="text" class="form-control" id="addCurso" name="curso" required>
+                        </div> -->
+                        <div class="mb-3">
+                            <label for="addCurso" class="form-label">Curso</label>
+                            <select class="form-control" id="addCurso" name="curso" required>
+                                <option value="Futbol">Fútbol</option>
+                                <option value="Tenis">Tenis</option>
+                                <option value="Padel">Pádel</option>
+                                <option value="Basquetbol">Básquetbol</option>
+                                <option value="Natacion">Natación</option>
+                                <option value="Gimnasio">Gimnasio</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="addHorario" class="form-label">Horario</label>
+                            <select class="form-control" id="addHorario" name="horario" required>
+                                <option value="Lunes : 08:00 - 10:00">Lunes : 08:00 - 10:00</option>
+                                <option value="Lunes : 10:00 - 12:00">Lunes : 10:00 - 12:00</option>
+                                <option value="Lunes : 12:00 - 14:00">Lunes : 12:00 - 14:00</option>
+                                <option value="Lunes : 14:00 - 16:00">Lunes : 14:00 - 16:00</option>
+                                <option value="Lunes : 16:00 - 18:00">Lunes : 16:00 - 18:00</option>
+                                <option value="Martes : 08:00 - 10:00">Martes : 08:00 - 10:00</option>
+                                <option value="Martes : 10:00 - 12:00">Martes : 10:00 - 12:00</option>
+                                <option value="Martes : 12:00 - 14:00">Martes : 12:00 - 14:00</option>
+                                <option value="Martes : 14:00 - 16:00">Martes : 14:00 - 16:00</option>
+                                <option value="Martes : 16:00 - 18:00">Martes : 16:00 - 18:00</option>
+                                <option value="Miercoles : 08:00 - 10:00">Miercoles : 08:00 - 10:00</option>
+                                <option value="Miercoles : 10:00 - 12:00">Miercoles : 10:00 - 12:00</option>
+                                <option value="Miercoles : 12:00 - 14:00">Miercoles : 12:00 - 14:00</option>
+                                <option value="Miercoles : 14:00 - 16:00">Miercoles : 14:00 - 16:00</option>
+                                <option value="Miercoles : 16:00 - 18:00">Miercoles : 16:00 - 18:00</option>
+                                <option value="Jueves : 08:00 - 10:00">Jueves : 08:00 - 10:00</option>
+                                <option value="Jueves : 10:00 - 12:00">Jueves : 10:00 - 12:00</option>
+                                <option value="Jueves : 12:00 - 14:00">Jueves : 12:00 - 14:00</option>
+                                <option value="Jueves : 14:00 - 16:00">Jueves : 14:00 - 16:00</option>
+                                <option value="Jueves : 16:00 - 18:00">Jueves : 16:00 - 18:00</option>
+                                <option value="Viernes : 08:00 - 10:00">Viernes : 08:00 - 10:00</option>
+                                <option value="Viernes : 10:00 - 12:00">Viernes : 10:00 - 12:00</option>
+                                <option value="Viernes : 12:00 - 14:00">Viernes : 12:00 - 14:00</option>
+                                <option value="Viernes : 14:00 - 16:00">Viernes : 14:00 - 16:00</option>
+                                <option value="Viernes : 16:00 - 18:00">Viernes : 16:00 - 18:00</option>
+                            </select>
+                        </div>
+                        
+                        <!-- <div class="mb-3">
+                            <label for="addHorario" class="form-label">Horario</label>
+                            <input type="text" class="form-control" id="addHorario" name="horario" required>
+                        </div> -->
+                        
+                        <div class="mb-3">
+                            <label for="addProfesor" class="form-label">Profesor</label>
+                            <input type="text" class="form-control" id="addProfesor" name="profesor" required>
+                        </div>
+                        <!-- <div class="mb-3">
+                            <label for="addCancha" class="form-label">Cancha</label>
+                            <input type="text" class="form-control" id="addCancha" name="cancha" required>
+                        </div> -->
+                        <div class="mb-3">
+                            <label for="addSector" class="form-label">Sector</label>
+                            <select class="form-control" id="addSector" name="sector" required>
+                                <option value="Cancha A">Cancha A</option>
+                                <option value="Cancha B">Cancha B</option>
+                                <option value="Cancha C">Cancha C</option>
+                                <option value="Cancha Padel A">Cancha Pádel A</option>
+                                <option value="Cancha Padel B">Cancha Pádel B</option>
+                                <option value="Cancha Tenis A">Cancha Tenis A</option>
+                                <option value="Cancha Basquetbol">Cancha Básquetbol</option>
+                                <option value="Piscina">Piscina</option>
+                                <option value="Gimnasio">Gimnasio A</option>
+                                <option value="Gimnasio">Gimnasio B</option>
+                            </select>
+                        </div> 
+                        <!-- <div class="mb-3">
+                            <label for="addDisponibilidad" class="form-label">Disponibilidad</label>
+                            <input type="text" class="form-control" id="addDisponibilidad" name="disponibilidad" required>
+                        </div> -->
+                        <div class="mb-3">
+                            <label for="addDisponibilidad" class="form-label">Disponible</label>
+                            <select class="form-control" id="addDisponibilidad" name="disponibilidad" required>
+                                <option value="Si">Sí</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div> 
+                        <button type="submit" class="btn btn-primary">Agregar Curso</button>
+                    </form>
+>>>>>>> 4fccab8bca6e4b197b4ffde28b8c3b3bcf0077c5
                 </div>
             </div>
         </div>
@@ -258,6 +358,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="editHorario" class="form-label">Horario</label>
+<<<<<<< HEAD
                             <select class="form-control" id="addHorario" name="horario" required>
                                 <option value="08:00 - 10:00">08:00 - 10:00</option>
                                 <option value="10:00 - 12:00">10:00 - 12:00</option>
@@ -265,6 +366,34 @@
                                 <option value="14:00 - 16:00">14:00 - 16:00</option>
                                 <option value="16:00 - 18:00">16:00 - 18:00</option>
                                 <option value="Lunes a Viernes">Lunes a Viernes</option>
+=======
+                            <select class="form-control" id="editHorario" name="horario" required>
+                                <option value="Lunes : 08:00 - 10:00">Lunes : 08:00 - 10:00</option>
+                                <option value="Lunes : 10:00 - 12:00">Lunes : 10:00 - 12:00</option>
+                                <option value="Lunes : 12:00 - 14:00">Lunes : 12:00 - 14:00</option>
+                                <option value="Lunes : 14:00 - 16:00">Lunes : 14:00 - 16:00</option>
+                                <option value="Lunes : 16:00 - 18:00">Lunes : 16:00 - 18:00</option>
+                                <option value="Martes : 08:00 - 10:00">Martes : 08:00 - 10:00</option>
+                                <option value="Martes : 10:00 - 12:00">Martes : 10:00 - 12:00</option>
+                                <option value="Martes : 12:00 - 14:00">Martes : 12:00 - 14:00</option>
+                                <option value="Martes : 14:00 - 16:00">Martes : 14:00 - 16:00</option>
+                                <option value="Martes : 16:00 - 18:00">Martes : 16:00 - 18:00</option>
+                                <option value="Miercoles : 08:00 - 10:00">Miercoles : 08:00 - 10:00</option>
+                                <option value="Miercoles : 10:00 - 12:00">Miercoles : 10:00 - 12:00</option>
+                                <option value="Miercoles : 12:00 - 14:00">Miercoles : 12:00 - 14:00</option>
+                                <option value="Miercoles : 14:00 - 16:00">Miercoles : 14:00 - 16:00</option>
+                                <option value="Miercoles : 16:00 - 18:00">Miercoles : 16:00 - 18:00</option>
+                                <option value="Jueves : 08:00 - 10:00">Jueves : 08:00 - 10:00</option>
+                                <option value="Jueves : 10:00 - 12:00">Jueves : 10:00 - 12:00</option>
+                                <option value="Jueves : 12:00 - 14:00">Jueves : 12:00 - 14:00</option>
+                                <option value="Jueves : 14:00 - 16:00">Jueves : 14:00 - 16:00</option>
+                                <option value="Jueves : 16:00 - 18:00">Jueves : 16:00 - 18:00</option>
+                                <option value="Viernes : 08:00 - 10:00">Viernes : 08:00 - 10:00</option>
+                                <option value="Viernes : 10:00 - 12:00">Viernes : 10:00 - 12:00</option>
+                                <option value="Viernes : 12:00 - 14:00">Viernes : 12:00 - 14:00</option>
+                                <option value="Viernes : 14:00 - 16:00">Viernes : 14:00 - 16:00</option>
+                                <option value="Viernes : 16:00 - 18:00">Viernes : 16:00 - 18:00</option>
+>>>>>>> 4fccab8bca6e4b197b4ffde28b8c3b3bcf0077c5
                             </select>
                         <div class="mb-3">
                             <label for="editProfesor" class="form-label">Profesor</label>
@@ -285,7 +414,8 @@
                                 <option value="Cancha Tenis A">Cancha Tenis A</option>
                                 <option value="Cancha Basquetbol">Cancha Básquetbol</option>
                                 <option value="Piscina">Piscina</option>
-                                <option value="Gimnasio">Gimnasio</option>
+                                <option value="Gimnasio">Gimnasio A</option>
+                                <option value="Gimnasio">Gimnasio B</option>
                             </select>
                         </div>
                         <div class="mb-3">
