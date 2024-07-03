@@ -241,6 +241,7 @@ router.post('/crear-justificacion', checkAuth, upload.single('archivo'), async (
     try {
         const nuevaJustificacion = new Justificacion({
         usuario: req.session.userId,
+        curso: req.body.curso,
         asunto: req.body.asunto,
         descripcion: req.body.descripcion,
         archivo: req.file ? {

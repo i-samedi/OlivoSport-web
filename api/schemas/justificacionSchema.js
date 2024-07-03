@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const justificacionSchema = new mongoose.Schema({
   usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario', required: true },
+  curso: { type: mongoose.Schema.Types.ObjectId, ref: 'cursos' },
   asunto: { type: String, required: true },
   descripcion: { type: String, required: true },
   archivo: { 
