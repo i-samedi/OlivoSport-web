@@ -278,5 +278,6 @@ router.get('/descargar-archivo/:justificacionId', async (req, res) => {
     res.status(500).send('Error al descargar el archivo');
     }
     });
+    
 
 export default router;
