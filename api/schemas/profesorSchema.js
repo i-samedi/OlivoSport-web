@@ -4,8 +4,8 @@ import mongoose from 'mongoose';
 const profesorSchema = new mongoose.Schema({
     nombre: String,
     especialidad: String,
-    cursos: String,
-    horarios: String,
+    rut: String,
+    // password: String,
     disponibilidad: String,
     usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'usuarios' }
 });

@@ -182,8 +182,7 @@ window.onload = function() {
             <tr>
                 <th>Nombre</th>
                 <th>Especialidad</th>
-                <th>Cursos</th>
-                <th>Horarios</th>
+                <th>RUT</th>
                 <th>Disponibilidad</th>
                 <th>Editar</th>
                 <th>Borrar</th>
@@ -194,11 +193,11 @@ window.onload = function() {
             <tr>
                 <td><%= profesor.nombre %></td>
                 <td><%= profesor.especialidad %></td>
-                <td><%= profesor.cursos %></td>
-                <td><%= profesor.horarios %></td>
+                <td><%= profesor.rut %></td>
+                <!-- <td><%= profesor.password %></td> -->
                 <td><%= profesor.disponibilidad %></td>
                 <td>
-                    <button class="btn btn-warning" onclick="editarProfesor('<%= profesor._id %>', '<%= profesor.nombre %>', '<%= profesor.especialidad %>', '<%= profesor.cursos %>', '<%= profesor.horarios %>', '<%= profesor.disponibilidad %>')">Editar</button>
+                    <button class="btn btn-warning" onclick="editarProfesor('<%= profesor._id %>', '<%= profesor.nombre %>', '<%= profesor.especialidad %>', '<%= profesor.rut %>', '<%= profesor.disponibilidad %>')">Editar</button>
                 </td>
                 <td>
                     <form action="/profes/delete/<%= profesor._id %>" method="POST">
@@ -237,7 +236,7 @@ window.onload = function() {
                             <label for="addProfesorMateria" class="form-label">Especialidad</label>
                             <input type="text" class="form-control" id="addProfesorMateria" name="especialidad" required>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="addProfesorDeporte" class="form-label">Cursos</label>
                                 <select class="form-control" id="addProfesorDeporte" name="cursos" required>
                                     <option value="Futbol">Fútbol</option>
@@ -247,8 +246,8 @@ window.onload = function() {
                                     <option value="Natacion">Natación</option>
                                     <option value="Gimnasio">Gimnasio</option>
                                 </select>
-                        </div>
-                        <div class="mb-3">
+                        </div> -->
+                        <!-- <div class="mb-3">
                             <label for="addProfesorHorario" class="form-label">Horario</label>
                             <select class="form-control" id="addProfesorHorario" name="horarios" required>
                                 <option value="08:00 - 10:00">08:00 - 10:00</option>
@@ -258,14 +257,8 @@ window.onload = function() {
                                 <option value="16:00 - 18:00">16:00 - 18:00</option>
                                 <option value="Lunes a Viernes">Lunes a Viernes</option>
                             </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="addProfesorDisponible" class="form-label">Disponibilidad</label>
-                            <select class="form-control" id="addProfesorDisponible" name="disponibilidad" required>
-                                <option value="Si">Sí</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
+                        </div> -->
+                       
                         <!-- Campos del usuario -->
                         <div class="mb-3">
                             <label for="addProfesorRut" class="form-label">RUT</label>
@@ -274,6 +267,13 @@ window.onload = function() {
                         <div class="mb-3">
                             <label for="addProfesorPassword" class="form-label">Contraseña</label>
                             <input type="password" class="form-control" id="addProfesorPassword" name="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addProfesorDisponible" class="form-label">Disponibilidad</label>
+                            <select class="form-control" id="addProfesorDisponible" name="disponibilidad" required>
+                                <option value="Si">Sí</option>
+                                <option value="No">No</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Agregar Profesor</button>
                     </form>
@@ -370,7 +370,7 @@ window.onload = function() {
                         <label for="editCursos" class="form-label">Cursos</label>
                         <input type="text" class="form-control" id="editCursos" name="cursos" required>
                     </div> -->
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="editCursos" class="form-label">Cursos</label>
                         <select class="form-control" id="editCursos" name="cursos" required>
                             <option value="Futbol">Futbol</option>
@@ -381,12 +381,12 @@ window.onload = function() {
                             <option value="Gimnasio">Gimnasio</option>
 
                         </select>
-                    </div> 
+                    </div>  -->
                     <!-- <div class="mb-3">
                         <label for="editHorarios" class="form-label">Horarios</label>
                         <input type="text" class="form-control" id="editHorarios" name="horarios" required>
                     </div> -->
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="editHorarios" class="form-label">Horarios</label>
                         <select class="form-control" id="editHorarios" name="horarios" required>
                             <option value="08:00 - 10:00">08:00 - 10:00</option>
@@ -396,11 +396,15 @@ window.onload = function() {
                             <option value="16:00 - 18:00">16:00 - 18:00</option>
                             <option value="Lunes a Viernes">Lunes a Viernes</option>
                         </select>
-                    </div>
+                    </div> -->
                     <!-- <div class="mb-3">
                         <label for="editDisponibilidad" class="form-label">Disponibilidad</label>
                         <input type="text" class="form-control" id="editDisponibilidad" name="disponibilidad" required>
                     </div> -->
+                    <div class="mb-3">
+                        <label for="editProfesorPassword" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="editProfesorPassword" name="password" required>
+                    </div>
                     <div class="mb-3">
                         <label for="editDisponibilidad" class="form-label">Disponibilidad</label>
                         <select class="form-control" id="editDisponibilidad" name="disponibilidad" required>
@@ -408,6 +412,7 @@ window.onload = function() {
                             <option value="No">No</option>
                         </select>
                     </div>  
+                    
                     <button type="submit" class="btn btn-primary">Guardar cambios</button>
                 </form>
             </div>
@@ -418,13 +423,12 @@ window.onload = function() {
 <!-- Script para mostrar el modal y llenar los datos del formulario -->
 <script src="/js/sidebar.js"></script>
 <script>
-    function editarProfesor(id, nombre, especialidad, cursos, horarios, disponibilidad) {
+    function editarProfesor(id, nombre, especialidad, disponibilidad, password) {
         $('#editId').val(id);
         $('#editNombre').val(nombre);
         $('#editEspecialidad').val(especialidad);
-        $('#editCursos').val(cursos);
-        $('#editHorarios').val(horarios);
         $('#editDisponibilidad').val(disponibilidad);
+        $('#editProfesorPassword').val(password);
         $('#editForm').attr('action', '/profes/edit/' + id); // Ajusta la acción del formulario
         $('#editModal').modal('show');
     }
