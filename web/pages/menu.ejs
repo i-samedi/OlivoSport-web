@@ -37,7 +37,72 @@
                 height: 300px; /* Ajusta la altura en dispositivos móviles */
             }
         }
-        
+        .professional-carousel {
+          /* Sombra refinada */
+          box-shadow: 
+            0 10px 20px rgba(0, 0, 0, 0.1),
+            0 6px 6px rgba(0, 0, 0, 0.05);
+            
+          
+          /* Bordes redondeados sutiles */
+          border-radius: 8px;
+          
+          /* Overflow hidden para mantener los bordes redondeados */
+          overflow: hidden;
+          
+          /* Transición suave para efectos hover */
+          transition: all 0.3s ease-in-out;
+          margin: 40px auto;
+          max-width: 90%; /* Ajusta según tus necesidades */
+        }
+
+        /* Efecto hover sutil */
+        .professional-carousel:hover {
+          box-shadow: 
+            0 30px 45px rgba(0, 0, 0, 0.15),
+            0 25px 45px rgba(0, 0, 0, 0.08);
+          transform: translateY(-2px);
+        }
+
+        /* Mejora de los indicadores del carrusel */
+        .professional-carousel .carousel-indicators {
+          bottom: 20px;
+        }
+
+        .professional-carousel .carousel-indicators button {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          margin: 0 5px;
+          background-color: rgba(255, 255, 255, 0.5);
+          border: 2px solid transparent;
+          transition: all 0.3s ease;
+        }
+
+        .professional-carousel .carousel-indicators button.active {
+          background-color: #fff;
+          transform: scale(1.2);
+        }
+
+        /* Mejora de los controles del carrusel */
+        .professional-carousel .carousel-control-prev,
+        .professional-carousel .carousel-control-next {
+          width: 10%;
+          opacity: 0;
+          transition: all 0.3s ease;
+        }
+
+        .professional-carousel:hover .carousel-control-prev,
+        .professional-carousel:hover .carousel-control-next {
+          opacity: 0.8;
+        }
+
+        .professional-carousel .carousel-control-prev-icon,
+        .professional-carousel .carousel-control-next-icon {
+          background-color: rgba(0, 0, 0, 0.5);
+          border-radius: 50%;
+          padding: 20px;
+        }
   
   </style>
 </head>
@@ -145,45 +210,49 @@
                     </div>
                   </div>
                   
-                  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="../image/1.png" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../image/2.png" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../image/3.png" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                          <img src="../image/4.png" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                          <img src="../image/5.png" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                          <img src="../image/6.png" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                          <img src="../image/7.png" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                          <img src="../image/8.png" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                          <img src="../image/9.png" class="d-block w-100" alt="...">
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
+
+                  <div id="mainCarousel" class="carousel slide professional-carousel" data-bs-ride="carousel">
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                      <div class="carousel-inner">
+                          <div class="carousel-item active">
+                              <img src="../image/1.png" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item">
+                              <img src="../image/2.png" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item">
+                              <img src="../image/3.png" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="../image/4.png" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="../image/5.png" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="../image/6.png" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="../image/7.png" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="../image/8.png" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="../image/9.png" class="d-block w-100" alt="...">
+                          </div>
+                      </div>
+                      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                      </button>
+                  </div>
+                  </div>
+                  
                 
                 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
