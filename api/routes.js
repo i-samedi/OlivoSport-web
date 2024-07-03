@@ -240,7 +240,7 @@ router.post('/cursos/delete/:id', async (req, res) => {
 router.post('/crear-justificacion', checkAuth, upload.single('archivo'), async (req, res) => {
     try {
         const nuevaJustificacion = new Justificacion({
-        usuario: req.session.userId,
+        usuario: req.body.usuario,
         curso: req.body.curso,
         asunto: req.body.asunto,
         descripcion: req.body.descripcion,
