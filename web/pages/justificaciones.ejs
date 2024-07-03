@@ -102,77 +102,76 @@
                 <h2 class="mt-3 fw-bold">Justificaciones de Inasistencias</h2>
                 <hr>
                 <table class="table table-striped">
-                  <thead>
-                      <tr>
-                          <th scope="col">Profesor</th>
-                          <th scope="col">Curso</th>
-                          <th scope="col">Asunto</th>
-                          <th scope="col">Descripción</th>
-                          <th scope="col">Archivo</th>
-                          <th scope="col">Acción</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <% justificaciones.forEach(function(justificacion) { %>
-                      <tr>
-                          <td><%= justificacion.nombreProfesor %></td>
-                          <td><%= justificacion.curso %></td>
-                          <td><%= justificacion.asunto %></td>
-                          <td>
-                              <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#descriptionModal<%= justificacion._id %>">
-                                  Ver Mensaje
-                              </button>
-                          </td>
-                          <td>
-                              <a href="/descargar-archivo/<%= justificacion._id %>" class="btn btn-outline-primary">Descargar Archivo</a>
-                          </td>
-                          <td>
-                              <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#acceptModal<%= justificacion._id %>">Aceptar</button>
-                              <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#denyModal<%= justificacion._id %>">Denegar</button>
-                          </td>
-                      </tr>
-                      <% }); %>
-                  </tbody>
-              </table>
-                  
-                  <!-- Modal para ver la descripción -->
-                  <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="descriptionModalLabel">Descripción de la Solicitud</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
+                    
+                        <tr>
+                            <th scope="col">Profesor</th>
+                            <th scope="col">Curso</th>
+                            <th scope="col">Asunto</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Archivo</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% justificaciones.forEach(function(justificacion) { %>
+                        <tr>
+                            <td><%= justificacion.nombreProfesor %></td>
+                            <td><%= justificacion.curso %></td>
+                            <td><%= justificacion.asunto %></td>
+                            <td>
+                            <!-- Modal -->
+                            <div class="modal fade" id="descriptionModal<%= justificacion._id %>" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="descriptionModalLabel">Mensaje de Justificación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <!-- Aquí mostrarás la descripción de la justificación -->
+                                    <p><%= justificacion.descripcion %></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#descriptionModal<%= justificacion._id %>">
+                                Ver Mensaje
+                            </button>
+                            </td>
+                            <td>
+                                <a href="/descargar-archivo/<%= justificacion._id %>" class="btn btn-outline-primary">Descargar Archivo</a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#acceptModal<%= justificacion._id %>">Aceptar</button>
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#denyModal<%= justificacion._id %>">Denegar</button>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+                    
+                    <!-- Modal para aceptar la justificación -->
+                    <div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="acceptModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="acceptModalLabel">Aceptar Justificación</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
                         <div class="modal-body">
-                          <!-- Aquí iría la descripción del profesor -->
-                          <p>Descripción detallada de la justificación...</p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- Modal para aceptar la justificación -->
-                  <div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="acceptModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="acceptModalLabel">Aceptar Justificación</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <form>
+                            <form>
                             <div class="mb-3">
-                              <label for="substituteTeacher" class="form-label">Seleccionar profesor sustituto:</label>
-                              <!-- <select class="form-select" id="substituteTeacher">
+                                <label for="substituteTeacher" class="form-label">Seleccionar profesor sustituto:</label>
+                                <!-- <select class="form-select" id="substituteTeacher">
                                 <option selected>Seleccione un profesor</option>
                                 <option value="1">Profesor 1</option>
                                 <option value="2">Profesor 2</option>
                                 <option value="3">Profesor 3</option>
-                              </select> -->
-                              <select class="form-select" id="substituteTeacher" name="substituteTeacher">
+                                </select> -->
+                                <select class="form-select" id="substituteTeacher" name="substituteTeacher">
                                 <option selected>Seleccione un profesor</option>
                                 <% profesores.forEach(function(profesor) { %>
                                     <% const disponibilidad = profesor.disponibilidad.toLowerCase(); %>
@@ -184,18 +183,18 @@
                             
                             </div>
                             <div class="mb-3">
-                              <label for="emailMessage" class="form-label">Mensaje para el correo:</label>
-                              <textarea class="form-control" id="emailMessage" rows="3"></textarea>
+                                <label for="emailMessage" class="form-label">Mensaje para el correo:</label>
+                                <textarea class="form-control" id="emailMessage" rows="3"></textarea>
                             </div>
-                          </form>
+                            </form>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                          <button type="button" class="btn btn-primary">Enviar y Aceptar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary">Enviar y Aceptar</button>
                         </div>
-                      </div>
+                        </div>
                     </div>
-                  </div>
+                    </div>
         </div>
     </div>
 
