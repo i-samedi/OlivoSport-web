@@ -106,10 +106,14 @@ router.get("/plantilla", checkAuth, (req, res) => {
 //PRUEBA DE FUNCIONAMIENTO DE CRUD DE PROFESORES (CREE UN NUEVO ARCHIVO EJS PA VER COMO FUNCIONAN) (HAy que adaptarlo)
 
 router.get('/profes',checkAuth, async (req, res) => {
-    const profesores = await Profesor.find({});
-    const { nombre, apellido, tipo_de_usuario } = res.locals.user;
-   // res.render("profes", { nombre, apellido, tipo_de_usuario });
-    res.render('profes', { profesores: profesores }); // Cambiado a profes
+    try {
+        const profesores = await Profesor.find({}).populate('usuario', 'rut'); // Aquí populamos la referencia al usuario
+        const { tipo_de_usuario } = res.locals.user;
+        res.render('profes', { tipo_de_usuario, profesores });
+    } catch (error) {
+        console.error('Error al obtener profesores:', error);
+        res.status(500).send(error);
+    }
 });
 
 router.post('/profes', async (req, res) => {
@@ -129,8 +133,6 @@ router.post('/profes', async (req, res) => {
         const newProfesor = new Profesor({
             nombre: req.body.nombre,
             especialidad: req.body.especialidad,
-            cursos: req.body.cursos,
-            horarios: req.body.horarios,
             disponibilidad: req.body.disponibilidad,
             usuario: savedUser._id // Asociar el profesor al usuario
         });
@@ -145,11 +147,29 @@ router.post('/profes', async (req, res) => {
 
 router.post('/profes/edit/:id', async (req, res) => {
     try {
-        await Profesor.findByIdAndUpdate(req.params.id, req.body);
+        const { id } = req.params;
+        const { nombre, especialidad, disponibilidad, password } = req.body;
+
+        // Encontrar al profesor por ID
+        const profesor = await Profesor.findById(id).populate('usuario');
+
+        profesor.nombre = nombre;
+        profesor.especialidad = especialidad;
+        profesor.disponibilidad = disponibilidad;
+
+
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            profesor.usuario.password = hashedPassword;
+        }
+
+        await profesor.save();
+        await profesor.usuario.save();
+
         res.redirect('/profes');
     } catch (error) {
-        console.error('Error al actualizar el profesor:', error);
-        res.status(500).send('Error al actualizar el profesor');
+        console.error('Error al actualizar el profesor y usuario:', error);
+        res.status(500).send('Error al actualizar el profesor y usuario');
     }
 });
 
