@@ -115,69 +115,72 @@
                 </div>
                 <div class="">
                   <% if (tipo_de_usuario !== 'Administrador') { %>
-                    <table class="table table-striped table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Curso</th>
-                            <th scope="col">Horarios</th>
-                            <th scope="col">Notificación</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td> <%= cursos %> | <%= especialidad %> </td>
-                            <td> <%= horarios %> </td>
-                            <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">
-                                    Justificar Inasistencia
-                                </button>
-                                
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Justificación de Inasistencia</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                      </div>
-                                      <div class="modal-body">
-
-                                        <div class="alert alert-danger" role="alert">
-                                            <h4 class="alert-heading">¡Importante!</h4>
-                                            <p style="text-align: justify;"> Recuerda enviar la justificación de inasistencia con anticipación de 12 horas.
-                                              Una vez enviada la justificación, se enviará un correo electrónico indicando si tu solicitud ha sido aceptada o rechazada<p>                                            
+                      <table class="table table-striped table-hover">
+                          <thead>
+                              <tr>
+                                  <th scope="col">ID</th>
+                                  <th scope="col">Curso</th>
+                                  <th scope="col">Horarios</th>
+                                  <th scope="col">Notificación</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <% cursos.forEach((curso, index) => { %>
+                                  <tr>
+                                      <th scope="row"><%= index + 1 %></th>
+                                      <td><%= curso.curso %> | <%= especialidad %></td>
+                                      <td><%= curso.horario %></td>
+                                      <td>
+                                          <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal<%= index %>">
+                                              Justificar Inasistencia
+                                          </button>
+              
+                                          <!-- Modal para justificación de inasistencia -->
+                                          <div class="modal fade" id="exampleModal<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                              <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                      <div class="modal-header">
+                                                          <h5 class="modal-title" id="exampleModalLabel">Justificación de Inasistencia</h5>
+                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                          <div class="alert alert-danger" role="alert">
+                                                              <h4 class="alert-heading">¡Importante!</h4>
+                                                              <p style="text-align: justify;">
+                                                                  Recuerda enviar la justificación de inasistencia con anticipación de 12 horas.
+                                                                  Una vez enviada la justificación, se enviará un correo electrónico indicando si tu solicitud ha sido aceptada o rechazada.
+                                                              </p>
+                                                          </div>
+              
+                                                          <form id="justificacionForm<%= index %>" enctype="multipart/form-data">
+                                                              <div class="mb-3">
+                                                                  <label for="asunto" class="col-form-label">Asunto:</label>
+                                                                  <input type="text" class="form-control" id="asunto<%= index %>" name="asunto" required>
+                                                              </div>
+                                                              <div class="mb-3">
+                                                                  <label for="descripcion" class="col-form-label">Mensaje:</label>
+                                                                  <textarea class="form-control" id="descripcion<%= index %>" name="descripcion" required></textarea>
+                                                              </div>
+                                                              <div class="form-group">
+                                                                  <label for="archivo<%= index %>">Adjuntar Archivo:</label>
+                                                                  <input type="file" class="form-control-file" id="archivo<%= index %>" name="archivo">
+                                                              </div>
+                                                          </form>
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                          <button type="button" class="btn btn-primary" onclick="enviarJustificacion(<%= index %>)">Enviar mensaje</button>
+                                                      </div>
+                                                  </div>
+                                              </div>
                                           </div>
-
-                                          <form id="justificacionForm" enctype="multipart/form-data">
-                                            <div class="mb-3">
-                                              <label for="asunto" class="col-form-label">Asunto:</label>
-                                              <input type="text" class="form-control" id="asunto" name="asunto" required>
-                                            </div>
-                                            <div class="mb-3">
-                                              <label for="descripcion" class="col-form-label">Mensaje:</label>
-                                              <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="archivo">Adjuntar Archivo: </label>
-                                              <input type="file" class="form-control-file" id="archivo" name="archivo">
-                                            </div>
-                                          </form>
-                                          
-                                      </div>
-                                      
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary">Enviar mensaje</button>
-                                      </div>
-
-                                    </div>
-                                  </div>
-                                </div></td>
-                          </tr>
-                        </tbody>
+                                      </td>
+                                  </tr>
+                              <% }); %>
+                          </tbody>
                       </table>
-                      <% } %>
-                </div>
+                  <% } %>
+              </div>
             </div>
 
 
