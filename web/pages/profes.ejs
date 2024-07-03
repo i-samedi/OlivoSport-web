@@ -62,28 +62,6 @@ window.onload = function() {
 };
 
     </script>
-    <script>
-        $(document).ready(function() {
-            $('#profesoresTable').DataTable({
-                "pageLength": 10,
-                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-                "language": {
-                    "lengthMenu": "Mostrar _MENU_ entradas por página",
-                    "zeroRecords": "No se encontraron registros coincidentes",
-                    "info": "Mostrando página _PAGE_ de _PAGES_",
-                    "infoEmpty": "No hay registros disponibles",
-                    "infoFiltered": "(filtrado de _MAX_ registros totales)",
-                    "search": "Buscar:",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Último",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    }
-                }
-            });
-        });
-        </script>
      <style>
         #profesorForm {
             display: none;
@@ -199,7 +177,7 @@ window.onload = function() {
             <div class="dashboard-content px-3 pt-4">
 <div class="container mt-5">
     <h1>Profesores del Centro Deportivo</h1>
-    <table id="profesoresTable" class="table table-striped">
+    <table id="example" class="table table-striped">
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -228,6 +206,9 @@ window.onload = function() {
             </tr>
             <% }); %>
         </tbody>
+        <!-- boton para desplegar la ventana modal de añadir profesor -->
+        <button class="btn btn-primary" onclick="mostrarModalAgregarProfesor()">Agregar Profesor</button>
+
     </table>
 <!-- Modal para agregar profesor -->
     <div class="modal fade" id="addProfesorModal" tabindex="-1" aria-labelledby="addProfesorModalLabel" aria-hidden="true">
