@@ -280,4 +280,14 @@ router.get('/descargar-archivo/:justificacionId', async (req, res) => {
     }
     });
 
+    router.post('/justificaciones/delete/:id', checkAuth, async (req, res) => {
+        try {
+            await Justificacion.findByIdAndDelete(req.params.id);
+            res.redirect('/justificaciones');
+        } catch (error) {
+            console.error('Error al eliminar la justificación:', error);
+            res.status(500).send('Error al eliminar la justificación');
+        }
+    });
+
 export default router;
