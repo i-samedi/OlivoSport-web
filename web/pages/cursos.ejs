@@ -110,38 +110,39 @@
             <div class="dashboard-content px-3 pt-4">
                 <div class="container mt-5">
                     <h1>Cursos del Centro Deportivo</h1>
-                    <table id="example" class="table table-striped">
-                        
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCourseModal">Agregar Curso</button>
+                    <table class="table">
                         <thead>
-                            <button class="btn btn-primary" onclick="showAddModal()">Agregar Curso</button>
                             <tr>
                                 <th>Curso</th>
                                 <th>Horario</th>
                                 <th>Profesor</th>
-                                <th>Sector</th>  <!-- Add this line -->
+                                <th>Sector</th>
                                 <th>Disponibilidad</th>
                                 <th>Editar</th>
                                 <th>Borrar</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% cursos.forEach(function(curso) { %>
-                            <tr>
-                                <td><%= curso.curso %></td>
-                                <td><%= curso.horario %></td>
-                                <td><%= curso.profesor %></td>
-                                <td><%= curso.sector %></td>  <!-- Add this line -->
-                                <td><%= curso.disponibilidad %></td>
-                                <td>
-                                    <button class="btn btn-warning" onclick="showEditModal('<%= curso._id %>', '<%= curso.curso %>', '<%= curso.horario %>', '<%= curso.profesor %>', '<%= curso.sector %>', '<%= curso.disponibilidad %>')">Editar</button>
-                                </td>
-                                <td>
-                                    <form action="/cursos/delete/<%= curso._id %>" method="POST">
-                                        <button type="submit" class="btn btn-danger">Borrar</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <% }); %>
+                            <% cursos.forEach(curso => { %>
+                                <tr>
+                                    <td><%= curso.curso %></td>
+                                    <td><%= curso.horario %></td>
+                                    <td><%= curso.profesor ? curso.profesor.nombre : 'Sin asignar' %></td>
+                                    <td><%= curso.sector %></td>
+                                    <td><%= curso.disponibilidad %></td>
+                                        <!-- Botones de editar y borrar -->
+                                       <td>
+                                        <button class="btn btn-warning" onclick="editarCurso('<%= curso._id %>', '<%= curso.curso %>', '<%= curso.horario %>', '<%= curso.profesor ? curso.profesor._id: ',' %>', '<%= curso.sector %>', '<%= curso.disponibilidad %>')">Editar</button>
+                                        </td>
+                                        <td>
+                                        <form action="/cursos/delete/<%= curso._id %>" method="POST" style="display:inline;">
+                                            <button type="submit" class="btn btn-danger">Borrar</button>
+                                        </form>
+
+                                    </td>
+                                </tr>
+                            <% }) %>
                         </tbody>
                     </table>
                 </div>
@@ -150,87 +151,75 @@
         </div>
 
          <!-- Modal de agregar -->
-    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Agregar Curso</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="addForm" action="/cursos" method="POST">
-                        <!-- <div class="mb-3">
-                            <label for="addCurso" class="form-label">Curso</label>
-                            <input type="text" class="form-control" id="addCurso" name="curso" required>
-                        </div> -->
-                        <div class="mb-3">
-                            <label for="addCurso" class="form-label">Curso</label>
-                            <select class="form-control" id="addCurso" name="curso" required>
-                                <option value="Futbol">Fútbol</option>
-                                <option value="Tenis">Tenis</option>
-                                <option value="Padel">Pádel</option>
-                                <option value="Basquetbol">Básquetbol</option>
-                                <option value="Natacion">Natación</option>
-                                <option value="Gimnasio">Gimnasio</option>
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="addHorario" class="form-label">Horario</label>
-                            <select class="form-control" id="addHorario" name="horario" required>
-                                <option value="08:00 - 10:00">08:00 - 10:00</option>
-                                <option value="10:00 - 12:00">10:00 - 12:00</option>
-                                <option value="12:00 - 14:00">12:00 - 14:00</option>
-                                <option value="14:00 - 16:00">14:00 - 16:00</option>
-                                <option value="16:00 - 18:00">16:00 - 18:00</option>
-                                <option value="Lunes a Viernes">Lunes a Viernes</option>
-                            </select>
-                        </div>
-                        
-                        <!-- <div class="mb-3">
-                            <label for="addHorario" class="form-label">Horario</label>
-                            <input type="text" class="form-control" id="addHorario" name="horario" required>
-                        </div> -->
-                        
-                        <div class="mb-3">
-                            <label for="addProfesor" class="form-label">Profesor</label>
-                            <input type="text" class="form-control" id="addProfesor" name="profesor" required>
-                        </div>
-                        <!-- <div class="mb-3">
-                            <label for="addCancha" class="form-label">Cancha</label>
-                            <input type="text" class="form-control" id="addCancha" name="cancha" required>
-                        </div> -->
-                        <div class="mb-3">
-                            <label for="addSector" class="form-label">Sector</label>
-                            <select class="form-control" id="addSector" name="sector" required>
-                                <option value="Cancha A">Cancha A</option>
-                                <option value="Cancha B">Cancha B</option>
-                                <option value="Cancha C">Cancha C</option>
-                                <option value="Cancha Padel A">Cancha Pádel A</option>
-                                <option value="Cancha Padel B">Cancha Pádel B</option>
-                                <option value="Cancha Tenis A">Cancha Tenis A</option>
-                                <option value="Cancha Basquetbol">Cancha Básquetbol</option>
-                                <option value="Piscina">Piscina</option>
-                                <option value="Gimnasio">Gimnasio</option>
-                            </select>
-                        </div> 
-                        <!-- <div class="mb-3">
-                            <label for="addDisponibilidad" class="form-label">Disponibilidad</label>
-                            <input type="text" class="form-control" id="addDisponibilidad" name="disponibilidad" required>
-                        </div> -->
-                        <div class="mb-3">
-                            <label for="addDisponibilidad" class="form-label">Disponible</label>
-                            <select class="form-control" id="addDisponibilidad" name="disponibilidad" required>
-                                <option value="Si">Sí</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div> 
-                        <button type="submit" class="btn btn-primary">Agregar Curso</button>
-                    </form>
+         <div class="modal fade" id="addCourseModal" tabindex="-1" aria-labelledby="addCourseModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addCourseModalLabel">Agregar Curso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addCourseForm" method="POST" action="/cursos">
+                            <div class="mb-3">
+                                <label for="courseName" class="form-label">Nombre del Curso</label>
+                                <select class="form-control" id="addCurso" name="curso" required>
+                                    <option value="Futbol">Fútbol</option>
+                                    <option value="Tenis">Tenis</option>
+                                    <option value="Padel">Pádel</option>
+                                    <option value="Basquetbol">Básquetbol</option>
+                                    <option value="Natacion">Natación</option>
+                                    <option value="Gimnasio">Gimnasio</option>
+                                </select>
+    
+                            </div>
+                            <div class="mb-3">
+                                <label for="courseSchedule" class="form-label">Horario</label>
+                                <select class="form-control" id="addHorario" name="horario" required>
+                                    <option value="08:00 - 10:00">08:00 - 10:00</option>
+                                    <option value="10:00 - 12:00">10:00 - 12:00</option>
+                                    <option value="12:00 - 14:00">12:00 - 14:00</option>
+                                    <option value="14:00 - 16:00">14:00 - 16:00</option>
+                                    <option value="16:00 - 18:00">16:00 - 18:00</option>
+                                    <option value="Lunes a Viernes">Lunes a Viernes</option>
+                                </select>
+    
+                            </div>
+                            <div class="mb-3">
+                                <label for="courseProfessor" class="form-label">Profesor</label>
+                                <select class="form-control" id="courseProfessor" name="profesor" required>
+                                    <% profesores.forEach(profesor => { %>
+                                        <option value="<%= profesor._id %>"><%= profesor.nombre %></option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="courseSector" class="form-label">Sector</label>
+                                <select class="form-control" id="addSector" name="sector" required>
+                                    <option value="Cancha A">Cancha A</option>
+                                    <option value="Cancha B">Cancha B</option>
+                                    <option value="Cancha C">Cancha C</option>
+                                    <option value="Cancha Padel A">Cancha Pádel A</option>
+                                    <option value="Cancha Padel B">Cancha Pádel B</option>
+                                    <option value="Cancha Tenis A">Cancha Tenis A</option>
+                                    <option value="Cancha Basquetbol">Cancha Básquetbol</option>
+                                    <option value="Piscina">Piscina</option>
+                                    <option value="Gimnasio">Gimnasio</option>
+                                </select>
+    
+                            </div>
+                            <div class="mb-3">
+                                <label for="courseAvailability" class="form-label">Disponibilidad</label>
+                                <select class="form-control" id="courseAvailability" name="disponibilidad" required>
+                                    <option value="Si">Sí</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Agregar Curso</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- boton para desplegar la ventana modal -->
     
@@ -256,13 +245,9 @@
                 <div class="modal-body">
                     <form id="editForm" method="POST">
                         <input type="hidden" id="editId" name="id">
-                        <!-- <div class="mb-3">
-                            <label for="editCurso" class="form-label">Curso</label>
-                            <input type="text" class="form-control" id="editCurso" name="curso" required>
-                        </div> -->
-                        <<div class="mb-3">
-                            <label for="editCurso" class="form-label">Curso</label>
-                            <select class="form-control" id="editCurso" name="curso" required>
+                        <div class="mb-3">
+                            <label for="editNombre" class="form-label">Nombre del Curso</label>
+                            <select class="form-control" id="addCurso" name="curso" required>
                                 <option value="Futbol">Fútbol</option>
                                 <option value="Tenis">Tenis</option>
                                 <option value="Padel">Pádel</option>
@@ -271,10 +256,9 @@
                                 <option value="Gimnasio">Gimnasio</option>
                             </select>
                         </div>
-                        
                         <div class="mb-3">
                             <label for="editHorario" class="form-label">Horario</label>
-                            <select class="form-control" id="editHorario" name="horario" required>
+                            <select class="form-control" id="addHorario" name="horario" required>
                                 <option value="08:00 - 10:00">08:00 - 10:00</option>
                                 <option value="10:00 - 12:00">10:00 - 12:00</option>
                                 <option value="12:00 - 14:00">12:00 - 14:00</option>
@@ -282,20 +266,17 @@
                                 <option value="16:00 - 18:00">16:00 - 18:00</option>
                                 <option value="Lunes a Viernes">Lunes a Viernes</option>
                             </select>
-                        </div>
-                        
-                        
                         <div class="mb-3">
                             <label for="editProfesor" class="form-label">Profesor</label>
-                            <input type="text" class="form-control" id="editProfesor" name="profesor" required>
+                            <select class="form-control" id="editProfesor" name="profesor" required>
+                                <% profesores.forEach(profesor => { %>
+                                    <option value="<%= profesor._id %>"><%= profesor.nombre %></option>
+                                <% }) %>
+                            </select>
                         </div>
-                        <!-- <div class="mb-3">
-                            <label for="editCancha" class="form-label">Cancha</label>
-                            <input type="text" class="form-control" id="editCancha" name="cancha" required>
-                        </div> -->
                         <div class="mb-3">
                             <label for="editSector" class="form-label">Sector</label>
-                            <select class="form-control" id="editSector" name="sector" required>
+                            <select class="form-control" id="addSector" name="sector" required>
                                 <option value="Cancha A">Cancha A</option>
                                 <option value="Cancha B">Cancha B</option>
                                 <option value="Cancha C">Cancha C</option>
@@ -307,35 +288,30 @@
                                 <option value="Gimnasio">Gimnasio</option>
                             </select>
                         </div>
-                        <!-- <div class="mb-3">
-                            <label for="editDisponibilidad" class="form-label">Disponibilidad</label>
-                            <input type="text" class="form-control" id="editDisponibilidad" name="disponibilidad" required>
-                        </div> -->
                         <div class="mb-3">
-                            <label for="editDisponibilidad" class="form-label">Disponible</label>
+                            <label for="editDisponibilidad" class="form-label">Disponibilidad</label>
                             <select class="form-control" id="editDisponibilidad" name="disponibilidad" required>
                                 <option value="Si">Sí</option>
                                 <option value="No">No</option>
                             </select>
-                        </div> 
+                        </div>
                         <button type="submit" class="btn btn-primary">Guardar cambios</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- Script para mostrar el modal y llenar los datos del formulario -->
     <script src="/js/sidebar.js"></script>
     <script>
-        function showEditModal(id, curso, horario, profesor, sector, disponibilidad) {
+        function editarCurso(id, curso, horario, profesorId, sector, disponibilidad) {
             $('#editId').val(id);
-            $('#editCurso').val(curso);
+            $('#editNombre').val(curso);
             $('#editHorario').val(horario);
-            $('#editProfesor').val(profesor);
+            $('#editProfesor').val(profesorId);
             $('#editSector').val(sector);
             $('#editDisponibilidad').val(disponibilidad);
-            $('#editForm').attr('action', '/cursos/edit/' + id);
+            $('#editForm').attr('action', '/cursos/edit/' + id); // Ajusta la acción del formulario
             $('#editModal').modal('show');
         }
     </script>

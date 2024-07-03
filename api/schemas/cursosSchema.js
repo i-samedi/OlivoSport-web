@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const cursosSchema = new mongoose.Schema({
     curso: String,
     horario: String,
-    profesor: String,
+    profesor: { type: mongoose.Schema.Types.ObjectId, ref: 'profesor' },
     sector: String,
     disponibilidad: String
 });

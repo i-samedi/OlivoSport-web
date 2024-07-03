@@ -196,8 +196,9 @@ router.post('/profes/delete/:id', async (req, res) => {
 
 router.get('/cursos', checkAuth, async (req, res) => {
     try {
-        const cursos = await Cursos.find({});
-        res.render('cursos', { cursos, tipo_de_usuario: 'Administrador' });
+        const cursos = await Cursos.find({}).populate('profesor');
+        const profesores = await Profesor.find({});
+        res.render('cursos', { cursos, profesores, tipo_de_usuario: 'Administrador' });
     } catch (error) {
         console.error('Error al obtener los cursos:', error);
         res.status(500).send('Error al obtener los cursos');
@@ -207,12 +208,13 @@ router.get('/cursos', checkAuth, async (req, res) => {
 // Ruta para agregar un nuevo curso
 router.post('/cursos', async (req, res) => {
     try {
-        const nuevoCurso = new Cursos(req.body);
+        const { curso, horario, profesor, sector, disponibilidad } = req.body;
+        const nuevoCurso = new Cursos({ curso, horario, profesor, sector, disponibilidad });
         await nuevoCurso.save();
         res.redirect('/cursos');
     } catch (error) {
-        console.error('Error al agregar el curso:', error);
-        res.status(500).send('Error al agregar el curso');
+        console.error('Error al crear el curso:', error);
+        res.status(500).send('Error al crear el curso');
     }
 });
 
@@ -278,16 +280,6 @@ router.get('/descargar-archivo/:justificacionId', async (req, res) => {
     console.error('Error al descargar el archivo:', error);
     res.status(500).send('Error al descargar el archivo');
     }
-    });
-
-    router.post('/justificaciones/delete/:id', checkAuth, async (req, res) => {
-        try {
-            await Justificacion.findByIdAndDelete(req.params.id);
-            res.redirect('/justificaciones');
-        } catch (error) {
-            console.error('Error al eliminar la justificación:', error);
-            res.status(500).send('Error al eliminar la justificación');
-        }
     });
 
 export default router;
