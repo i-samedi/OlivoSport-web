@@ -115,7 +115,7 @@
                     <tbody>
                         <% justificaciones.forEach(function(justificacion) { %>
                         <tr>
-                            <td><%= justificacion.nombreProfesor %></td>
+                            <td><%= justificacion.usuario ? justificacion.usuario.nombre : 'Usuario no disponible' %></td>
                             <td><%= justificacion.curso %></td>
                             <td><%= justificacion.asunto %></td>
                             <td>
