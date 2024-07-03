@@ -44,10 +44,10 @@ router.get('/user', checkAuth, async (req, res) => {
     try {
         // Obtener el tipo de usuario
         const tipo_de_usuario = res.locals.user.tipo_de_usuario;
+        const { nombre, apellido } = res.locals.user;
 
         if (tipo_de_usuario === 'Administrador') {
             // Si es administrador, renderizar solo nombre, apellido y tipo_de_usuario del usuario logueado
-            const { nombre, apellido } = res.locals.user;
             return res.render('user', { tipo_de_usuario, nombre, apellido });
         } else {
             // Si es otro tipo de usuario (como Profesor), continuar con el flujo normal
@@ -65,7 +65,7 @@ router.get('/user', checkAuth, async (req, res) => {
             const cursos = await Cursos.find({ profesor: profesor._id }).populate('profesor');
 
             // Obtener otros datos relevantes del profesor
-            const { nombre, apellido, especialidad } = profesor; // Nombre, apellido y especialidad del profesor
+            const { especialidad } = profesor; // Especialidad del profesor
             const horarios = profesor.disponibilidad; // Obtener horarios del profesor
 
             // Renderizar la vista user.ejs con los datos del profesor, cursos y horarios
