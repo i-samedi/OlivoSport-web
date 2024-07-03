@@ -42,34 +42,40 @@ router.get("/menu", checkAuth, (req, res) => {
 
 router.get('/user', checkAuth, async (req, res) => {
     try {
-        // Obtener el ID del usuario logueado desde res.locals.user (asumiendo que contiene el ID del profesor)
-        const userId = res.locals.user._id;
+        // Obtener el tipo de usuario
+        const tipo_de_usuario = res.locals.user.tipo_de_usuario;
 
-        // Buscar al profesor basado en el usuario logueado
-        const profesor = await Profesor.findOne({ usuario: userId }).populate('usuario');
+        if (tipo_de_usuario === 'Administrador') {
+            // Si es administrador, renderizar solo nombre, apellido y tipo_de_usuario del usuario logueado
+            const { nombre, apellido } = res.locals.user;
+            return res.render('user', { tipo_de_usuario, nombre, apellido });
+        } else {
+            // Si es otro tipo de usuario (como Profesor), continuar con el flujo normal
+            // Obtener el ID del usuario logueado desde res.locals.user (asumiendo que contiene el ID del profesor)
+            const userId = res.locals.user._id;
 
-        if (!profesor) {
-            return res.status(404).send('Profesor no encontrado');
+            // Buscar al profesor basado en el usuario logueado
+            const profesor = await Profesor.findOne({ usuario: userId }).populate('usuario');
+
+            if (!profesor) {
+                return res.status(404).send('Profesor no encontrado');
+            }
+
+            // Obtener cursos asociados al profesor
+            const cursos = await Cursos.find({ profesor: profesor._id }).populate('profesor');
+
+            // Obtener otros datos relevantes del profesor
+            const { nombre, apellido, especialidad } = profesor; // Nombre, apellido y especialidad del profesor
+            const horarios = profesor.disponibilidad; // Obtener horarios del profesor
+
+            // Renderizar la vista user.ejs con los datos del profesor, cursos y horarios
+            return res.render('user', { tipo_de_usuario, nombre, apellido, especialidad, cursos, horarios });
         }
-
-        // Obtener cursos asociados al profesor
-        const cursos = await Cursos.find({ profesor: profesor._id }).populate('profesor');
-
-        // Obtener tipo de usuario y otros datos relevantes
-        const tipo_de_usuario = res.locals.user.tipo_de_usuario; // Obtener el tipo_de_usuario
-        const { nombre, apellido, especialidad } = profesor; // Nombre, apellido y especialidad del profesor
-
-        // Obtener horarios del profesor (si están almacenados en algún lugar)
-        const horarios = profesor.disponibilidad; // Por ejemplo, obtener la disponibilidad del profesor
-
-        // Renderizar la vista user.ejs con los datos del profesor, cursos y horarios
-        res.render('user', { tipo_de_usuario, nombre, apellido, especialidad, cursos, horarios });
     } catch (error) {
-        console.error('Error al obtener datos del profesor y cursos:', error);
-        res.status(500).send('Error al obtener datos del profesor y cursos');
+        console.error('Error al obtener datos del usuario y cursos:', error);
+        res.status(500).send('Error al obtener datos del usuario y cursos');
     }
 });
-
 
 router.get('/justificaciones', checkAuth, async (req, res) => {
     try {
