@@ -82,7 +82,7 @@ router.get('/justificaciones', checkAuth, async (req, res) => {
         const profesoresDisponibles = await Profesor.find({
             disponibilidad: { $regex: new RegExp('^si$', 'i') }
         });
-        const justificaciones = await Justificacion.find({});
+        const justificaciones = await Justificacion.find({}).populate('usuario', 'curso');
         const { tipo_de_usuario } = res.locals.user;
         res.render('justificaciones', { tipo_de_usuario, profesores: profesoresDisponibles, justificaciones });
     } catch (error) {
