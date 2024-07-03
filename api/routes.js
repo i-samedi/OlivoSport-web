@@ -220,25 +220,44 @@ router.post('/cursos/delete/:id', async (req, res) => {
 
 router.post('/crear-justificacion', checkAuth, upload.single('archivo'), async (req, res) => {
     try {
-      const nuevaJustificacion = new Justificacion({
+        const nuevaJustificacion = new Justificacion({
         usuario: req.session.userId,
         asunto: req.body.asunto,
         descripcion: req.body.descripcion,
         archivo: req.file ? {
-          nombre: req.file.originalname,
-          datos: req.file.buffer,
-          contentType: req.file.mimetype
+        nombre: req.file.originalname,
+        datos: req.file.buffer,
+        contentType: req.file.mimetype
         } : undefined
-      });
-  
-      await nuevaJustificacion.save();
-      res.json({ success: true });
-    } catch (error) {
-      console.error('Error al crear la justificación:', error);
-      res.status(500).json({ success: false, message: 'Error al crear la justificación' });
-    }
-  });
+        });
 
-  
+    await nuevaJustificacion.save();
+    res.json({ success: true });
+    } catch (error) {
+        console.error('Error al crear la justificación:', error);
+        res.status(500).json({ success: false, message: 'Error al crear la justificación' });
+    }
+    });
+
+router.get('/descargar-archivo/:justificacionId', async (req, res) => {
+    try {
+        const justificacionId = req.params.justificacionId;
+        const justificacion = await Justificacion.findById(justificacionId);
+
+        if (!justificacion || !justificacion.archivo || !justificacion.archivo.datos) {
+        return res.status(404).send('Archivo no encontrado');
+        }
+
+    res.set({
+        'Content-Type': justificacion.archivo.contentType,
+        'Content-Disposition': `attachment; filename="${justificacion.archivo.nombre}"`
+    });
+
+    res.send(justificacion.archivo.datos);
+    } catch (error) {
+    console.error('Error al descargar el archivo:', error);
+    res.status(500).send('Error al descargar el archivo');
+    }
+    });
 
 export default router;
