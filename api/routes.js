@@ -302,7 +302,7 @@ router.post('/justificaciones/delete/:id', async (req, res) => {
         // Enviar correo
         const mailOptions = {
             from: 'cuenta.de.pruebatarea2@gmail.com',
-            to: 'pipemendezri@gmail.com', // Correo del profe que justifica
+            to: 'ProfesorRonnieColeman@gmail.com', // Correo del profe que justifica
             subject: 'Justificación Denegada',
             text: `Junto con saludar y esperando que se encuentre bien profesor/a ${justificacion.usuario}
             \nSu justificación para el curso ${justificacion.curso}, realizada el día ${formattedDate} con asunto "${justificacion.asunto}" ha sido denegada.`
