@@ -5,7 +5,8 @@ import Cursos from './schemas/cursosSchema.js';
 import Justificacion from './schemas/justificacionSchema.js';
 import Login from './schemas/loginSchema.js';
 import bcrypt from "bcrypt";
-import transporter from './mailer.js'; // Cambiado a import
+import transporter from './mailer.js';
+import moment from 'moment';
 
 const router = express.Router();
 
@@ -296,13 +297,15 @@ router.post('/justificaciones/delete/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const justificacion = await Justificacion.findByIdAndDelete(id);
+        const formattedDate = moment(justificacion.fecha).format('DD/MM/YYYY [a las] HH:mm [hrs.]');
 
         // Enviar correo
         const mailOptions = {
             from: 'cuenta.de.pruebatarea2@gmail.com',
             to: 'pipemendezri@gmail.com', // Correo del profe que justifica
-            subject: 'Justificación Eliminada',
-            text: `La justificación con asunto "${justificacion.asunto}" ha sido eliminada.`
+            subject: 'Justificación Denegada',
+            text: `Junto con saludar y esperando que se encuentre bien profesor/a ${justificacion.usuario}
+            \nSu justificación para el curso ${justificacion.curso}, realizada el día ${formattedDate} con asunto "${justificacion.asunto}" ha sido denegada.`
         };
 
         await transporter.sendMail(mailOptions);
@@ -310,7 +313,7 @@ router.post('/justificaciones/delete/:id', async (req, res) => {
         res.redirect('/justificaciones');
     } catch (error) {
         console.error('Error al eliminar la justificación:', error);
-        res.status(500).send('Error al eliminar la justificación');
+        res.status(500).send('Error al denegar la justificación');
     }
 });
 
