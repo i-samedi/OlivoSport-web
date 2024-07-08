@@ -5,6 +5,7 @@ import Cursos from './schemas/cursosSchema.js';
 import Justificacion from './schemas/justificacionSchema.js';
 import Login from './schemas/loginSchema.js';
 import bcrypt from "bcrypt";
+import transporter from './mailer.js'; // Cambiado a import
 
 const router = express.Router();
 
@@ -280,7 +281,7 @@ router.get('/descargar-archivo/:justificacionId', async (req, res) => {
     }
     });
 
-router.post('/justificaciones/delete/:id', async (req, res) => {
+/* router.post('/justificaciones/delete/:id', async (req, res) => {
     const { id } = req.params;
     try {
         await Justificacion.findByIdAndDelete(id);
@@ -289,6 +290,28 @@ router.post('/justificaciones/delete/:id', async (req, res) => {
         console.error('Error al eliminar la justificación:', error);
         res.status(500).send('Error al eliminar la justificación');
     }
-    });
+    }); */
+
+router.post('/justificaciones/delete/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const justificacion = await Justificacion.findByIdAndDelete(id);
+
+        // Enviar correo
+        const mailOptions = {
+            from: 'cuenta.de.pruebatarea2@gmail.com',
+            to: 'pipemendezri@gmail.com', // Correo del profe que justifica
+            subject: 'Justificación Eliminada',
+            text: `La justificación con asunto "${justificacion.asunto}" ha sido eliminada.`
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.redirect('/justificaciones');
+    } catch (error) {
+        console.error('Error al eliminar la justificación:', error);
+        res.status(500).send('Error al eliminar la justificación');
+    }
+});
 
 export default router;
