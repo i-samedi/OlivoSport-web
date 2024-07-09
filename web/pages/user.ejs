@@ -32,12 +32,12 @@
                 </li>
 
                 <% if (tipo_de_usuario === 'Administrador') { %>
-                  <li class="">
-                    <a href="/justificaciones" class="text-decoration-none px-3 py-2 d-block">
-                        <i class="fal fa-list"></i>
-                        Justificaciones
-                    </a>
-                </li>
+                    <li class="">
+                        <a href="/justificaciones" class="text-decoration-none px-3 py-2 d-block">
+                            <i class="fal fa-list"></i>
+                            Justificaciones 
+                        <span class="badge bg-danger"><%= justificacionesCount %></span></a>
+                    </li>
                 <% } %>
 
                 <% if (tipo_de_usuario === 'Administrador') { %>

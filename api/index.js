@@ -10,6 +10,7 @@ const collection = mongoose.model("usuarios");
 import Login from "./schemas/loginSchema.js";
 import router from "./routes.js";
 import bcrypt from "bcrypt"
+import Justificacion from "./schemas/justificacionSchema.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -44,6 +45,18 @@ app.use(async (req, res, next) => {
         }
     }
     next();
+});
+
+//visualizar contador de justificaciones
+app.use(async (req, res, next) => {
+    try {
+        const justificacionesCount = await Justificacion.countDocuments({});
+        res.locals.justificacionesCount = justificacionesCount;
+        next();
+    } catch (error) {
+        console.error('Error al obtener el conteo de justificaciones:', error);
+        next(error);
+    }
 });
 
 //se importan las rutas del archivo routes.js
