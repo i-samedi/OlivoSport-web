@@ -131,6 +131,7 @@ router.post('/profes', async (req, res) => {
         // Crear un nuevo profesor y asociarlo al usuario
         const newProfesor = new Profesor({
             nombre: req.body.nombre,
+            correo: req.body.correo,
             especialidad: req.body.especialidad,
             disponibilidad: req.body.disponibilidad,
             usuario: savedUser._id // Asociar el profesor al usuario
@@ -147,12 +148,13 @@ router.post('/profes', async (req, res) => {
 router.post('/profes/edit/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, especialidad, disponibilidad, password } = req.body;
+        const { nombre, correo, especialidad, disponibilidad, password } = req.body;
 
         // Encontrar al profesor por ID
         const profesor = await Profesor.findById(id).populate('usuario');
 
         profesor.nombre = nombre;
+        profesor.correo = correo;
         profesor.especialidad = especialidad;
         profesor.disponibilidad = disponibilidad;
 

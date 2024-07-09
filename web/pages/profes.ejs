@@ -181,6 +181,7 @@ window.onload = function() {
         <thead>
             <tr>
                 <th>Nombre</th>
+                <th>Email</th>
                 <th>Especialidad</th>
                 <th>RUT</th>
                 <th>Disponibilidad</th>
@@ -192,6 +193,7 @@ window.onload = function() {
             <% profesores.forEach(function(profesor) { %>
             <tr>
                 <td><%= profesor.nombre %></td>
+                <td><%= profesor.correo %></td>
                 <td><%= profesor.especialidad %></td>
                 <td><%= profesor.usuario.rut %></td>
                 <td><%= profesor.disponibilidad %></td>
@@ -224,6 +226,11 @@ window.onload = function() {
                         <div class="mb-3">
                             <label for="addProfesorNombre" class="form-label">Nombre del Profesor</label>
                             <input type="text" class="form-control" id="addProfesorNombre" name="nombre" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="addProfesorNombre" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="addProfesorNombre" name="correo" required>
                         </div>
                         
                         <div class="mb-3">
@@ -306,6 +313,10 @@ window.onload = function() {
                         <input type="text" class="form-control" id="editNombre" name="nombre" required>
                     </div>
                     <div class="mb-3">
+                        <label for="editNombre" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="editNombre" name="correo" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="editEspecialidad" class="form-label">Especialidad</label>
                         <input type="text" class="form-control" id="editEspecialidad" name="especialidad" required>
                     </div>
@@ -331,9 +342,10 @@ window.onload = function() {
 <!-- Script para mostrar el modal y llenar los datos del formulario -->
 <script src="/js/sidebar.js"></script>
 <script>
-    function editarProfesor(id, nombre, especialidad, disponibilidad, password) {
+    function editarProfesor(id, nombre, correo, especialidad, disponibilidad, password) {
         $('#editId').val(id);
         $('#editNombre').val(nombre);
+        $('#editCorreo').val(correo);
         $('#editEspecialidad').val(especialidad);
         $('#editDisponibilidad').val(disponibilidad);
         $('#editProfesorPassword').val(password);
