@@ -200,7 +200,10 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-primary">Enviar y Aceptar</button>
+                                        
+                                        <form action="/justificaciones/accept/<%= justificacion._id %>" method="POST">
+                                            <button type="submit" class="btn btn-primary">Enviar y Aceptar</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

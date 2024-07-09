@@ -319,4 +319,29 @@ router.post('/justificaciones/delete/:id', async (req, res) => {
     }
 });
 
+
+router.post('/justificaciones/accept/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const justificacion = await Justificacion.findByIdAndDelete(id);
+        const formattedDate = moment(justificacion.fecha).format('DD/MM/YYYY [a las] HH:mm [hrs.]');
+
+        // Enviar correo
+        const mailOptions = {
+            from: 'cuenta.de.pruebatarea2@gmail.com',
+            to: 'ProfesorRonnieColeman@gmail.com', // Correo del profe que justifica
+            subject: 'Justificación Aceptada',
+            text: `Junto con saludar y esperando que se encuentre bien profesor/a ${justificacion.usuario}
+            \nSu justificación para el curso ${justificacion.curso}, realizada el día ${formattedDate} con asunto "${justificacion.asunto}" ha sido aceptada.`
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.redirect('/justificaciones');
+    } catch (error) {
+        console.error('Error al aceptar la justificación:', error);
+        res.status(500).send('Error al aceptar la justificación');
+    }
+});
+
 export default router;
